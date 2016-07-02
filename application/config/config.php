@@ -18,8 +18,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = '';
-$config['domain_name'] = 'wiltee:8886';
-$config['end_url'] = 'wiltee:8886';
+$config['domain_name'] = '';
+$config['end_url'] = '';
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -511,5 +511,4 @@ $config['proxy_ips'] = '';
 |
 |
 */
-$config['suivi_google']		= FALSE;
 

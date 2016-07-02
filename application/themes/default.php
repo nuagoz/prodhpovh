@@ -21,7 +21,7 @@
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href=<?php echo base_url("assets/css/bootstrap.min.css"); ?>>
-    <link rel="stylesheet" href=<?php echo base_url("assets/css/bootstrap-theme.min.css"); ?>>
+    
 
     <?php
     foreach($css as $url):

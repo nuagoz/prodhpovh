@@ -3,6 +3,22 @@
 class Membre_model extends CI_Model
 {
 
+	/*
+	 * Fonction add_membre($infos)
+	 * -----
+	 * Fonction permettant de créer un membre en base de données
+	 * -----
+	 * @param 	Array 		$infos 			Tableau contenant les informations du membre
+	 * -----
+	 * @return  int 						Id du membre créé
+	 * -----
+	 * $Author: Etienne $
+	 */
+	public function add_membre($infos)
+	{
+		$this->db->insert($this->db->protect_identifiers(MEMBRE), $infos);
+		return $this->db->insert_id();
+	}
 
 	/*
 	 * Fonction permettant de récupérer les informations de tous les membres

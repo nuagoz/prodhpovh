@@ -8,13 +8,24 @@ body{
     src: url('../fonts/harryp.TTF');
 }
 
+/* Classes */
 .harrypotter{
     font-family: "harryp";
+}
+
+.blue{
+    color: #2199e8;
 }
 
 .main-title{
     font-size:32px;
 }
+
+.category{
+    font-size:64px;
+}
+
+/* Fin classes */
 
 /* liens */
 .navbar-nav>li>a{
