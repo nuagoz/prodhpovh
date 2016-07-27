@@ -21,6 +21,8 @@
 
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
     <link rel="stylesheet" href=<?php echo base_url("assets/css/bootstrap.min.css"); ?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/css/animate.css"); ?>>
+    <link rel="stylesheet" href=<?php echo base_url("assets/toastr/build/toastr.css"); ?>>
     
 
     <?php
@@ -63,6 +65,7 @@
     <script>window.jQuery || document.write('<script src="<?=base_url("assets/js/vendor/jquery-1.11.2.min.js")?>"><\/script>')</script>
 
     <script src=<?php echo base_url("assets/js/vendor/bootstrap.min.js"); ?>></script>
+    <script src=<?php echo base_url("assets/toastr/toastr.js"); ?>></script>
     <script src=<?php echo base_url("assets/js/main.js"); ?>></script>
     <?php 
     foreach($js as $url):

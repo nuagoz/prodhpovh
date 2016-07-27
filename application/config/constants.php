@@ -90,6 +90,13 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |--------------------------------------------------------------------------
 */
 
-define('MEMBRE', 'membre');
+define('MEMBRES', 'membres');
 define('TITRE', 'titre');
 define('POSSEDETITRE', 'possedetitre');
+define('ANIMAL', 'animal');
+define('POSSEDEANIMAL', 'possedeanimal');
+define('BONUS_MEMBRE', 'bonus_membre');
+define('INGREDIENT', 'ingredient');
+define('POSSEDEINGREDIENT', 'possedeingredient');
+define('MEMBRE_STATISTIQUE', 'membre_statistique');
+define('STATISTIQUE', 'statistique');

@@ -3,44 +3,48 @@
 class Membre_model extends CI_Model
 {
 
-	/*
-	 * Fonction add_membre($infos)
-	 * -----
-	 * Fonction permettant de créer un membre en base de données
-	 * -----
-	 * @param 	Array 		$infos 			Tableau contenant les informations du membre
-	 * -----
-	 * @return  int 						Id du membre créé
-	 * -----
-	 * $Author: Etienne $
-	 */
-	public function add_membre($infos)
-	{
-		$this->db->insert($this->db->protect_identifiers(MEMBRE), $infos);
-		return $this->db->insert_id();
-	}
 
+	public function update_membre($idmembre, $data)
+	{
+
+		$this->db->where('id', $idmembre);
+		return $this->db->update($this->db->protect_identifiers(MEMBRES), $data);
+	}
 	/*
 	 * Fonction permettant de récupérer les informations de tous les membres
 	 */
 	public function get_all_membres()
 	{
-		return $this->db->get($this->db->protect_identifiers(MEMBRE))->result_array();
+		return $this->db->get($this->db->protect_identifiers(MEMBRES))->result_array();
 	}
 
 	/*
 	 * Fonction permettant de récupérer les informations d'un membre en particulier
 	 */
-	public function get_membre($id_membre)
+	public function get_membre_by_id($id_membre)
 	{
 		$this->db->where('id', $id_membre);
-		return $this->db->get($this->db->protect_identifiers(MEMBRE))->row_array();
+		return $this->db->get($this->db->protect_identifiers(MEMBRES))->row_array();
+	}
+
+	public function get_membre_by_pseudo($pseudo)
+	{
+		$this->db->where('pseudo', $pseudo);
+		return $this->db->get($this->db->protect_identifiers(MEMBRES))->row_array();
 	}
 
 	public function classement()
 	{
 		$this->db->select('id, pseudo, points');
 		$this->db->order_by("points", "desc");
-		return $this->db->get($this->db->protect_identifiers(MEMBRE))->result_array();
+		return $this->db->get($this->db->protect_identifiers(MEMBRES))->result_array();
+	}
+
+	public function get_argent($idmembre)
+	{
+		$this->db->select('argent');
+		$this->db->where('id', $idmembre);
+		$valeur = $this->db->get($this->db->protect_identifiers(MEMBRES))->row_array();
+		return $valeur['argent'];
 	}
 }
