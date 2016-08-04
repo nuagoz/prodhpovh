@@ -26,7 +26,8 @@ class Welcome extends CI_Controller {
 
 
 		$this->load->library('session');
-		$this->layout->views('header')->view('accueil', $data);
+		$this->layout->view('left_part');
+		//$this->layout->views('header')->view('accueil', $data);
 
 	}
 }

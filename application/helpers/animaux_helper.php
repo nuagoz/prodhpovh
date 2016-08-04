@@ -67,7 +67,7 @@ if ( ! function_exists('build_fiche_cd')){
 	{
 		$texte = $info['rare'] == 1 ? "textepigeonrare" : "textepigeon";
 
-		$cadre = "<input class='croix' type='button' title='Relâcher votre animal' id='".$info['idhibou']."' name='id' value='".$info['idhibou']."'/>";
+		$cadre = "<input class='croix' type='button' onclick='confirmMessage(".$info['idhibou'].")' title='Relâcher votre animal' id='".$info['idhibou']."' name='id' value='".$info['idhibou']."'/>";
 		$cadre .= "<div id='hibou'>";
 			$cadre .= "<img src='".img_url('animaux/'.$info['idh'].'.jpg')."' 'height='120' width='120' id='img_hibou_".$info['idhibou']."' title ='[ ".$info['gainmin']." ; ".$info['gainmax']." ] - ".$info['succes']." %'>";
 		$cadre .= "</div>";

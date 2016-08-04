@@ -27,6 +27,7 @@ class Home extends CI_Controller {
 			$this->layout->views('header')->view('home_connected');
 		}
 		else{
+			//$this->layout->add_css('menu_offline');
 			$this->layout->views('header')->view('home');
 		}
 	}

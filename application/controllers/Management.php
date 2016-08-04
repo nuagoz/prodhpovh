@@ -3,6 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Management extends CI_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->lang->load('auth');
+		$this->load->library(array('ion_auth','form_validation'));
+		$this->load->model('membre_model');
+
+		
+	}
+
 	public function index()
 	{
 		if($this->ion_auth->logged_in())
@@ -10,15 +20,14 @@ class Management extends CI_Controller {
 			$this->load->model(array('management_model','ingredient_model','membre_model'));
 			$this->layout->add_js('animaux');
 
+			// récupération du pseudo et de l'argent du membre
+			$data['pseudo'] = $this->session->userdata('pseudo');
+			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
 
 			// Chargement de la liste des animaux du membre
-
 			$data['animaux'] = $this->management_model->get_animaux_membre($this->session->userdata('user_id'));
-
-
-			$this->layout->views('header')->view('animaux', $data);
+			$this->layout->view('animaux', $data);
 			//$this->output->enable_profiler(TRUE);
-
 		}
 		else
 		{
@@ -26,9 +35,49 @@ class Management extends CI_Controller {
 		}
 	}
 
-	public function release($idanimal)
+	public function release()
 	{
-		// $('#hibou_281').fadeOut()
+		if($this->ion_auth->logged_in() && !empty($_POST))
+		{
+			$this->load->model('management_model');
+			$this->load->helper('jsonresponse_helper');
+
+			$jsonResponse = new JsonResponse();
+
+			$idmembre = $this->session->userdata('user_id');
+			$animal = $this->management_model->get_infos_animaux_membre($idmembre, $this->input->post('idhibou'));
+
+			if ($this->management_model->count_animal($idmembre) > 1){ // Le membre ne peut pas libérer s'il n'a plus qu'un animal
+				if ($animal){ // Si l'animal appartient bien au membre
+
+					if (time() - $animal['date_utilisation'] >= $animal['cooldown']){ // Si l'animal n'est pas en CD
+						$verification = true;
+						$this->management_model->delete_animal($this->input->post('idhibou')); // On supprime l'animal
+						$notification = "<script>toastr.success('".$animal['nickname']." a bien été relâché !', 'Félicitation !', {timeOut: 3000})</script>"; 
+					}
+					else{
+						$verification = false;
+						$notification = "<script>toastr.error('Vous ne pouvez pas relâcher un animal pendant qu\'il se repose', 'Action impossible !', {timeOut: 3000})</script>"; 
+					}
+
+				}
+				else{
+					$verification = false;
+					$notification = "<script>toastr.error('Cet animal ne vous appartient pas', 'Action impossible !', {timeOut: 3000})</script>"; 
+				}
+			}
+			else{
+				$verification = false;
+				$notification = "<script>toastr.error('Vous ne pouvez pas libérer votre seul animal !', 'Action impossible !', {timeOut: 3000})</script>";
+			}
+			$jsonResponse->addOption('verif', $verification);
+			$jsonResponse->addOption('notification', $notification);
+			$jsonResponse->render();
+
+		}
+		else{
+			redirect('auth/login', 'location');
+		}
 	}
 
 	// Fonction qui gère l'envoi du courrier
@@ -43,9 +92,10 @@ class Management extends CI_Controller {
 
 			$resultat_ingredient = '';
 			$res = '';
+			$checktime='';
 			$idmembre = $this->session->userdata('user_id');
 			$argent = $this->membre_model->get_argent($idmembre);
-			$newargent = $argent;
+			//$newargent = $argent;
 			$animal = $this->management_model->get_infos_animaux_membre($idmembre, $this->input->post('idhibou'));
 
 			if ($animal) // Si le hibou appartient bien au membre
@@ -102,11 +152,12 @@ class Management extends CI_Controller {
 						$notification = "<script>toastr.success('".$animal['nickname']." vous a rapporté ".$argentwin." <img src=\"".img_url('gallion2.png')."\" height=\"30\" width=\"30\"/>', 'Courrier livré !', {timeOut: 3000})</script>";	
 					}
 					else{
-						$argentwin = $argent;
+						$argentwin = 0;
 						// Ajout un courrier raté à l'animal
 						$info['courriersfail'] = $animal['courriersfail'] + 1;
 						$notification = "<script>toastr.error('".$animal['nickname']." a égaré le courrier durant le trajet...', 'Échec !', {timeOut: 3000})</script>";
 					}
+
 					$verification = "ok";
 					// Ajoute timestamp à l'animal
 					$info['date_utilisation'] = time();

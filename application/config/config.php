@@ -17,9 +17,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'hpovh.hol.es';
-$config['domain_name'] = '';
-$config['end_url'] = '';
+$config['base_url'] = 'hpovh.hol.es/';
+$config['domain_name'] = 'hpovh';
+$config['end_url'] = 'hpovh.hol.es';
 /*
 |--------------------------------------------------------------------------
 | Index File

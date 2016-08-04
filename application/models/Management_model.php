@@ -91,6 +91,19 @@ class Management_model extends CI_Model
 		return $this->db->update($this->db->protect_identifiers(POSSEDEANIMAL), $data);
 	}
 
+	public function delete_animal($idanimal)
+	{
+		$this->db->where('id', $idanimal);
+		return $this->db->delete($this->db->protect_identifiers(POSSEDEANIMAL));
+	}
+
+	public function count_animal($idmembre)
+	{
+		$this->db->select('id');
+		$this->db->where('idmembre', $idmembre);
+		return $this->db->get($this->db->protect_identifiers(POSSEDEANIMAL))->num_rows();
+	}
+
 	/* Vérifie si l'utilisateur a un felix felicis et récupère le temps */
 	public function get_felix($idmembre)
 	{
