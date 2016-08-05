@@ -100,3 +100,5 @@ define('INGREDIENT', 'ingredient');
 define('POSSEDEINGREDIENT', 'possedeingredient');
 define('MEMBRE_STATISTIQUE', 'membre_statistique');
 define('STATISTIQUE', 'statistique');
+define('CARTE', 'carte');
+define('POSSEDECARTE', 'possedecarte');

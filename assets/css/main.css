@@ -1047,3 +1047,14 @@ vertical-align: middle;
 #head_menu{
   padding-right:30px;
 }
+
+/* CARTES */
+
+.image_card{
+  width:200px;
+  height:200px;
+}
+
+#list_card{
+  text-align: center;
+}

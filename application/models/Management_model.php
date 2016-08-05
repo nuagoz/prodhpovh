@@ -145,6 +145,33 @@ class Management_model extends CI_Model
 		return false;
 	}
 
+	public function get_cards($idmembre, $count=false)
+	{
+		$this->db->join(CARTE, POSSEDECARTE.'.idcarte = '.CARTE.'.id');
+		$this->db->where(POSSEDECARTE.'.idmembre', $idmembre);
+		if($count){
+			return $this->db->get($this->db->protect_identifiers(POSSEDECARTE))->num_rows();
+		}
+		else{
+			$result = $this->db->get($this->db->protect_identifiers(POSSEDECARTE));
+			if($result->num_rows() > 0)
+			{
+				return $result->result_array();
+			}
+			return false;
+		}
+	}
+
+	public function get_all_cards($count=false)
+	{
+		if($count){
+			return $this->db->get($this->db->protect_identifiers(CARTE))->num_rows();
+		}
+		else{
+			return $this->db->get($this->db->protect_identifiers(CARTE));
+		}
+	}
+
 	public function add_stat($idmembre, $idstat, $valeur)
 	{
 		$this->db->select('id');

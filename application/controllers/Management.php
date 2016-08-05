@@ -8,16 +8,14 @@ class Management extends CI_Controller {
 		parent::__construct();
 		$this->lang->load('auth');
 		$this->load->library(array('ion_auth','form_validation'));
-		$this->load->model('membre_model');
-
-		
+		$this->load->model(array('membre_model', 'management_model'));	
 	}
 
 	public function index()
 	{
 		if($this->ion_auth->logged_in())
 		{
-			$this->load->model(array('management_model','ingredient_model','membre_model'));
+			$this->load->model('ingredient_model');
 			$this->layout->add_js('animaux');
 
 			// récupération du pseudo et de l'argent du membre
@@ -26,6 +24,7 @@ class Management extends CI_Controller {
 
 			// Chargement de la liste des animaux du membre
 			$data['animaux'] = $this->management_model->get_animaux_membre($this->session->userdata('user_id'));
+
 			$this->layout->view('animaux', $data);
 			//$this->output->enable_profiler(TRUE);
 		}
@@ -35,11 +34,25 @@ class Management extends CI_Controller {
 		}
 	}
 
+	public function cards()
+	{
+		$data['pseudo'] = $this->session->userdata('pseudo');
+		$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+
+		$data['cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'));
+		$data['nb_cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'), true);
+
+		$data['cartes'] = $this->management_model->get_all_cards();
+		$data['nb_cartes'] = $this->management_model->get_all_cards(true);
+
+		$this->layout->view('cartes', $data);
+
+	}
+
 	public function release()
 	{
 		if($this->ion_auth->logged_in() && !empty($_POST))
 		{
-			$this->load->model('management_model');
 			$this->load->helper('jsonresponse_helper');
 
 			$jsonResponse = new JsonResponse();
@@ -85,7 +98,7 @@ class Management extends CI_Controller {
 	{
 		if($this->ion_auth->logged_in() && !empty($_POST))
 		{
-			$this->load->model(array('management_model', 'ingredient_model', 'membre_model'));
+			$this->load->model('ingredient_model');
 			$this->load->helper(array('animaux_helper', 'jsonresponse_helper'));
 
 			$jsonResponse = new JsonResponse();
