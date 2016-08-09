@@ -3,7 +3,15 @@
 	<?php include('left_part.php'); ?>
 		<div class="col-sm-9 col-lg-10">
 
-		Nombre de carte : <?php echo $nb_cartes_membre; ?> / <?php echo $nb_cartes; ?> <br/>
+		<input type='hidden' id='nb_total_cards' value='<?php echo $nb_cartes; ?>'/>
+		<input type='hidden' id='nb_total_bronze' value='<?php echo $nb_bronze; ?>'/>
+		<input type='hidden' id='nb_total_silver' value='<?php echo $nb_argent; ?>'/>
+		<input type='hidden' id='nb_total_gold' value='<?php echo $nb_or; ?>'/>
+
+		<h1 class='title'>Votre collection</h1>
+		<div id = 'chart_container'>
+			<div id="doughnutChart" class="chart"></div>
+		</div>
 
 		<?php
 		$cartes = array();

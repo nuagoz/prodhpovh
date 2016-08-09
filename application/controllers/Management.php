@@ -36,11 +36,20 @@ class Management extends CI_Controller {
 
 	public function cards()
 	{
+		$this->layout->add_css('cards');
+		$this->layout->add_js('cards');
+
+
 		$data['pseudo'] = $this->session->userdata('pseudo');
 		$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
 
 		$data['cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'));
 		$data['nb_cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'), true);
+
+		// Comptage de chaque type de carte
+		$data['nb_bronze'] = $this->management_model->get_cards($this->session->userdata('user_id'), true, "bronze");
+		$data['nb_argent'] =  $this->management_model->get_cards($this->session->userdata('user_id'), true, "argent");
+		$data['nb_or'] =  $this->management_model->get_cards($this->session->userdata('user_id'), true, "or");
 
 		$data['cartes'] = $this->management_model->get_all_cards();
 		$data['nb_cartes'] = $this->management_model->get_all_cards(true);
@@ -106,6 +115,7 @@ class Management extends CI_Controller {
 			$resultat_ingredient = '';
 			$res = '';
 			$checktime='';
+			$result_send = '';
 			$idmembre = $this->session->userdata('user_id');
 			$argent = $this->membre_model->get_argent($idmembre);
 			//$newargent = $argent;
@@ -162,12 +172,19 @@ class Management extends CI_Controller {
 
 						// Ajoute un courrier réussi à l'animal
 						$info['courriers'] = $animal['courriers'] + 1;
+
+						$result_send = 'ok';
+						$message = $argentwin." <img src=\"".img_url('gallion2.png')."\" height=\"30\" width=\"30\"/>";
+						//$message="ok";
 						$notification = "<script>toastr.success('".$animal['nickname']." vous a rapporté ".$argentwin." <img src=\"".img_url('gallion2.png')."\" height=\"30\" width=\"30\"/>', 'Courrier livré !', {timeOut: 3000})</script>";	
 					}
 					else{
 						$argentwin = 0;
 						// Ajout un courrier raté à l'animal
 						$info['courriersfail'] = $animal['courriersfail'] + 1;
+
+						$result_send = 'fail';
+						$message = "Échec";
 						$notification = "<script>toastr.error('".$animal['nickname']." a égaré le courrier durant le trajet...', 'Échec !', {timeOut: 3000})</script>";
 					}
 
@@ -176,21 +193,17 @@ class Management extends CI_Controller {
 					$info['date_utilisation'] = time();
 					$this->management_model->update_animal($this->input->post('idhibou'), $info);
 					$info_fiche['idhibou'] = $this->input->post('idhibou');
-					$info_fiche['idh'] = $animal['idanimal'];
-					$info_fiche['gainmin'] = $animal['gainmin'];
-					$info_fiche['gainmax'] = $animal['gainmax'];
-					$info_fiche['nickname'] = $animal['nickname'];
-					$info_fiche['succes'] = $animal['succes'];
-					$info_fiche['rare'] = $animal['rare'];
 
 					$animal = $this->management_model->get_infos_animaux_membre($idmembre, $this->input->post('idhibou'));
 					$info_fiche['calcul'] = $animal['cooldown']-(time()-$animal['date_utilisation']);
 
 					$newargent = $argent + $argentwin;
 
-					$res = build_fiche_cd($info_fiche);
+					
+					$jsonResponse->addOption('result_send', $result_send);
+					$jsonResponse->addOption('message', $message);
 					$jsonResponse->addOption('cd', $info_fiche['calcul']);
-					$jsonResponse->addResponseHtml($res);
+					
 					$jsonResponse->addOption('argent', $newargent);
 					$jsonResponse->addOption('ingredient', $resultat_ingredient);
 

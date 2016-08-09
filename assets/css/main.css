@@ -1,3 +1,5 @@
+@import url(//fonts.googleapis.com/css?family=Oswald:400);
+
 body{
     background-color: #ebebeb;
 }
@@ -8,6 +10,7 @@ body{
 }
 
 /* Classes */
+
 .harrypotter{
     font-family: "harryp";
 }
@@ -718,6 +721,7 @@ vertical-align: middle;
   width:200px;
   height: 300px;
   box-shadow: 3px 2px 10px 3px;
+  position:relative;
   display:inline-block;
   margin-right:18px;
   margin-bottom:40px;
@@ -730,6 +734,7 @@ vertical-align: middle;
   width:200px;
   height: 300px;
   box-shadow: 3px 2px 10px 3px;
+  position:relative;
   display:inline-block;
   margin-right:18px;
   margin-bottom:40px;
@@ -788,6 +793,7 @@ vertical-align: middle;
 
 #hibou{
   margin-top:30px;
+  position:relative;
 }
 
 #list_hibou{
@@ -812,6 +818,21 @@ vertical-align: middle;
   background-color: grey;
   margin: 15px 0px 15px;
   text-align:center;
+}
+
+#animation_reward{
+  color:white;
+  position:absolute;
+  top: 10%;
+  left: 35%;
+  font-size:18px;
+  animation-duration: 3s;
+  text-shadow: 2px 2px 1px black;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
 }
 
 /* left menu */
@@ -1048,13 +1069,3 @@ vertical-align: middle;
   padding-right:30px;
 }
 
-/* CARTES */
-
-.image_card{
-  width:200px;
-  height:200px;
-}
-
-#list_card{
-  text-align: center;
-}

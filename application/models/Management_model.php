@@ -145,10 +145,13 @@ class Management_model extends CI_Model
 		return false;
 	}
 
-	public function get_cards($idmembre, $count=false)
+	public function get_cards($idmembre, $count=false, $type=null)
 	{
 		$this->db->join(CARTE, POSSEDECARTE.'.idcarte = '.CARTE.'.id');
 		$this->db->where(POSSEDECARTE.'.idmembre', $idmembre);
+		if(!empty($type)){
+			$this->db->where(CARTE.'.type', $type);
+		}
 		if($count){
 			return $this->db->get($this->db->protect_identifiers(POSSEDECARTE))->num_rows();
 		}
@@ -171,6 +174,9 @@ class Management_model extends CI_Model
 			return $this->db->get($this->db->protect_identifiers(CARTE));
 		}
 	}
+
+
+	/* ******** */
 
 	public function add_stat($idmembre, $idstat, $valeur)
 	{

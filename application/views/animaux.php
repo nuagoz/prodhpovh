@@ -23,7 +23,8 @@
 
 		echo "<div class='".$cadre."' id='hibou_".$animal['id']."'>
 				<input class='croix' type='button' onclick='confirmMessage(".$animal['id'].")' title='Relâcher votre animal' id='".$animal['id']."' name='id' value='".$animal['id']."' />
-				<div id='hibou'>
+				<div id='hibou' class='hibou_".$animal['id']."'>
+					<div id = 'animation_reward' class='animation_reward_".$animal['id']."' style='display:none;'></div>
 					<img src='".img_url('animaux/'.$animal['idanimal'].'.jpg')."' 'height='120' width='120' id='img_hibou_".$animal['id']."' title ='[ ".$animal['gainmin']." ; ".$animal['gainmax']." ] - ".$animal['succes']." %'>
 				</div>
 				<div class='textepigeon' id='lien_".$animal['id']."'>
@@ -77,6 +78,7 @@
 
 
 	} ?>
+	<button class='btn btn-primary' onclick='add_animation()'>Animer</button>
 	</div>
 
 			<div class='container'>
