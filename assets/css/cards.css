@@ -1,16 +1,13 @@
 @import url(//fonts.googleapis.com/css?family=Oswald:400);
 
-.title {
+/*.title {
   font-family: "Oswald", sans-serif;
   color: #292929;
   text-align: center;
   margin: 20px 0;
   text-transform: uppercase;
-}
+}*/
 
-#chart_container{
-  background: #222428;
-}
 .chart {
   margin: 0 auto;
   width: 250px;

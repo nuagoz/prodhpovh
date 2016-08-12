@@ -17,6 +17,9 @@ class Management extends CI_Controller {
 		{
 			$this->load->model('ingredient_model');
 			$this->layout->add_js('animaux');
+			$this->layout->add_js('vendor/overhang.min');
+			$this->layout->add_js('vendor/prism.min');
+			$this->layout->add_css('overhang.min');
 
 			// récupération du pseudo et de l'argent du membre
 			$data['pseudo'] = $this->session->userdata('pseudo');
@@ -203,7 +206,7 @@ class Management extends CI_Controller {
 					$jsonResponse->addOption('result_send', $result_send);
 					$jsonResponse->addOption('message', $message);
 					$jsonResponse->addOption('cd', $info_fiche['calcul']);
-					
+					$jsonResponse->addOption('earned', $argentwin);
 					$jsonResponse->addOption('argent', $newargent);
 					$jsonResponse->addOption('ingredient', $resultat_ingredient);
 

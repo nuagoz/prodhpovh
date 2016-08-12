@@ -60,9 +60,8 @@
 
     <?php echo $output; ?>
     
-
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<?=base_url("assets/js/vendor/jquery-1.11.2.min.js")?>"><\/script>')</script>
+    <script>window.jQuery || document.write('<script src="<?=base_url("assets/js/vendor/jquery-3.1.0.min.js")?>"><\/script>')</script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js" integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E=" crossorigin="anonymous"></script>
 
     <script src=<?php echo base_url("assets/js/vendor/bootstrap.min.js"); ?>></script>
     <script src=<?php echo base_url("assets/toastr/toastr.js"); ?>></script>

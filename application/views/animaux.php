@@ -2,11 +2,28 @@
   <div class="row">
   <?php include('left_part.php'); ?>
 
-  <div class="col-sm-9 col-lg-10">
+  <div class="col-sm-9 col-lg-10 right-zone">
 
 	<div id ='notif_envoi' style='display:none;'></div>
 	<div id ='notif_ingredient' style='display:none;'></div>
 	<input type='hidden' id='message_confirm' value='Voulez vous vraiment relâcher cet animal ?'/>
+
+	<h1 class='zone_title'>Vos animaux</h1>
+		<div id = 'zone_container' class='col-xs-12 line-center'>
+			<div class='col-xs-4 text-center'>
+				<div id = 'count-pigeonnier' class='oswald'>15/20</div>
+			</div>
+			<div class='col-xs-4 text-center'>
+				<div id = 'count-pigeonnier' class='oswald'>
+					Pigeonnier niveau 3
+				</div>
+			</div>
+			<div class='col-xs-4 text-center'>
+				<button type="button" class="btn btn-primary"><i class="fa fa-plus-circle" aria-hidden="true"></i> Améliorer le pigeonnier</button>
+			</div>
+
+		</div>
+
 
 	<div id='list_hibou'>
 	<?php
@@ -78,7 +95,9 @@
 
 
 	} ?>
-	<button class='btn btn-primary' onclick='add_animation()'>Animer</button>
+	<button onclick='alertoverhang()' class='btn btn-success'>Voir la page des cartes</button>
+	<button onclick='close()' class='btn btn-error'>Fermer</button>
+	<a href="<?php echo base_url('management/cards'); ?>"><button class='btn btn-success'>Voir la page des cartes</button></a>
 	</div>
 
 			<div class='container'>

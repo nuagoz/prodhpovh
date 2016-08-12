@@ -8,8 +8,8 @@
 		<input type='hidden' id='nb_total_silver' value='<?php echo $nb_argent; ?>'/>
 		<input type='hidden' id='nb_total_gold' value='<?php echo $nb_or; ?>'/>
 
-		<h1 class='title'>Votre collection</h1>
-		<div id = 'chart_container'>
+		<h1 class='zone_title'>Votre collection</h1>
+		<div id = 'zone_container'>
 			<div id="doughnutChart" class="chart"></div>
 		</div>
 

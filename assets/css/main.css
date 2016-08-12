@@ -714,6 +714,36 @@ vertical-align: middle;
 }
 
 /********************************/
+/*      Style global page       */
+/********************************/
+
+#zone_container{
+  background: #222428;
+  min-height: 250px;
+  width:100%;
+  margin-bottom: 20px;
+  position:relative;
+}
+
+.line-center{
+  line-height: 250px;
+}
+
+@import url(//fonts.googleapis.com/css?family=Oswald:400);
+.zone_title{
+  
+  font-family: "Oswald", sans-serif;
+  color: #292929;
+  text-align: center;
+  margin: 20px 0;
+  text-transform: uppercase;
+
+}
+
+.oswald{
+  font-family: "Oswald", sans-serif;
+}
+/********************************/
 /*          Animaux CSS         */
 /********************************/
 
@@ -833,6 +863,17 @@ vertical-align: middle;
       -ms-transform: translate(-50%, -50%);
        -o-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
+}
+
+#stat_g{
+  display:inline-block;
+  max-width:16px;
+  max-height:16px;
+}
+
+#count-pigeonnier{
+  color:white;
+  font-size:18px;
 }
 
 /* left menu */
