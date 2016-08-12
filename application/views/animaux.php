@@ -95,8 +95,7 @@
 
 
 	} ?>
-	<button onclick='alertoverhang()' class='btn btn-success'>Voir la page des cartes</button>
-	<button onclick='close()' class='btn btn-error'>Fermer</button>
+	
 	<a href="<?php echo base_url('management/cards'); ?>"><button class='btn btn-success'>Voir la page des cartes</button></a>
 	</div>
 
