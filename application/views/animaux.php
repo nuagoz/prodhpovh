@@ -9,6 +9,8 @@
 	<input type='hidden' id='message_confirm' value='Voulez vous vraiment relâcher cet animal ?'/>
 
 	<h1 class='zone_title'>Vos animaux</h1>
+
+	<div class = 'hidden-sm hidden-xs'>
 		<div id = 'zone_container' class='col-xs-12 line-center'>
 			<div class='col-xs-4 text-center'>
 				<div id = 'count-pigeonnier' class='oswald'>15/20</div>
@@ -23,6 +25,7 @@
 			</div>
 
 		</div>
+	</div>
 
 
 	<div id='list_hibou'>
