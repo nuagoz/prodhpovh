@@ -202,6 +202,22 @@ body{
   height:32px;
 }
 
+.badge{
+  background-color: #4090d6 !important;
+}
+
+.closeperso{
+  position:absolute;
+  right:0px;
+  margin-top: -15px !important;
+  margin-right: 10px;
+}
+
+#modal_ingredient{
+  width:32px;
+  height:32px;
+}
+
 #title_category{
   font-size:40px;
   margin:15px 0px 15px;
@@ -556,15 +572,13 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 /********************************/
 /*           Rank table         */
 /********************************/
-
-#cadre_classement{
-margin: 0 auto;
-margin-top: 5%;
+.table-classement{
+  margin: 0 auto;
 height: 0 auto;
 padding: 8px; 
- background: #FCFAE1;
+background: #FCFAE1;
 border:3px solid black;
- border-radius:20px;
+border-radius:20px;
 -webkit-border-radius:5px;
 -moz-border-radius:5px;
 
@@ -573,19 +587,24 @@ border-image-width: 22px 25px 22px 25px;
 border-image-outset: 0px 0px 0px 0px;
 border-image-repeat: repeat repeat;
 border-image-source:  url(../../assets/img/cadre_rougor.jpg);
-
-
 }
 
 
-}
 #cadre_classement h3{
 text-align : center;
 font-size: 2em;
 
 }
 
-
+.table-fill {
+  background: white;
+  border-radius:3px;
+  border-collapse: collapse;
+  margin-top: 9px;
+  margin-bottom: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+ 
 th {
   color:#D5DDE5;;
   background:#1b1e24;
@@ -712,6 +731,7 @@ vertical-align: middle;
   */
   #no-more-tables td:before { content: attr(data-title); }
 }
+
 
 /********************************/
 /*      Style global page       */
@@ -855,6 +875,21 @@ vertical-align: middle;
   position:absolute;
   top: 10%;
   left: 35%;
+  font-size:18px;
+  animation-duration: 3s;
+  text-shadow: 2px 2px 1px black;
+  -webkit-transform: translate(-50%, -50%);
+     -moz-transform: translate(-50%, -50%);
+      -ms-transform: translate(-50%, -50%);
+       -o-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+}
+
+#animation_ingredient{
+  color:white;
+  position:absolute;
+  top: 40%;
+  left: 60%;
   font-size:18px;
   animation-duration: 3s;
   text-shadow: 2px 2px 1px black;
@@ -1027,11 +1062,22 @@ vertical-align: middle;
   transition: background-color 0.3s ease, padding-left 0.2s ease-out, color 0.3s ease;
 }
 
+.sub_champ_menu{
+  color: white;
+  padding-left: 80px !important;
+  line-height: 30px !important;
+  font-weight: 600;
+  padding: 14px 20px 14px 25px;
+  transition: background-color 0.3s ease, padding-left 0.2s ease-out, color 0.3s ease;
+}
+
 #menu_main{
   color:white !important;
   text-align: center;
   padding-top: 30px;
   padding-bottom: 25px;
+  text-decoration: none !important;
+
 }
 
 /*.navbar-nav>li>a{
@@ -1046,13 +1092,32 @@ vertical-align: middle;
   font-size:21px;
 }
 
+.sub-navbar-category{
+  list-style: none;
+}
+
+.sub-navbar-category > li > a {
+  color: white !important;
+  font-size:16px;
+}
+
 .navbar-category > li > a:hover {
   background-color: #191818 !important;
   padding-left: 30px;
 }
 
+.sub-navbar-category > li > a:hover {
+  background-color: #191818 !important;
+  padding-left: 80px;
+}
+
 .navbar-category > li > a:focus {
   background-color: #191818 !important;
+}
+
+.sub-navbar-category > li > a:hover {
+  background-color: #191818 !important;
+  padding-left: 30px;
 }
 
 #menu_gallions{

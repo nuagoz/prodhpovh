@@ -1,4 +1,10 @@
-function send_animal(idhibou){
+$(window).on('resize', centerModals);
+
+$( ".close" ).click(function() {
+  alert( "Handler for .click() called." );
+});
+
+function send_animal(idhibou) {
 
 	$("#envoi_"+idhibou).attr( "disabled", "disabled" );
 	$("#envoi_"+idhibou).addClass('disabled');
@@ -45,6 +51,9 @@ function send_animal(idhibou){
 						$('.animation_reward_'+idhibou).remove();
 						$('.hibou_'+idhibou).prepend("<div id = 'animation_reward' class='animation_reward_"+idhibou+"' style='display:none;'></div>");
 
+						$('.animation_ingredient_'+idhibou).remove();
+						$('.hibou_'+idhibou).prepend("<div id = 'animation_ingredient' class='animation_ingredient_"+idhibou+"' style='display:none;'></div>");
+
 						//$("#img_"+idhibou).css("display","none");
 						//$('#boost_hibou_279').fadeOut(1000);
 					}
@@ -62,12 +71,12 @@ function send_animal(idhibou){
 				
 				if (data.response.options.result_send === "ok")
 				{
-					add_animation(data.response.options.message, 'ok', idhibou);
+					add_animation(data.response.options.message, 'ok', idhibou, data.response.options.img_ingredient);
 					bandeau('ok');
 				}
 				else
 				{
-					add_animation(data.response.options.message, 'fail', idhibou);
+					add_animation(data.response.options.message, 'fail', idhibou, data.response.options.img_ingredient);
 					bandeau('fail');
 				}
 
@@ -87,7 +96,7 @@ function send_animal(idhibou){
 						var count_f = '<span class="col-xs-4 col-sm-3" id ="count_fail" style="color:red;">';
 							count_f +='<i class="fa fa-times" aria-hidden="true"></i> <span id = "stat_f"> 0</span></span>';
 
-						var list_ingr = '<button type="button" class="col-xs-12 col-sm-3 btn btn-primary">Ingrédients : <span id="qty_ingr">0</button>';
+						var list_ingr = '<button type="button" class="col-xs-12 col-sm-3 btn btn-primary" data-toggle="modal" data-target="#ingredient_list">Ingrédients : <span id="qty_ingr">0</button>';
 						var fin = '</span>';
 
 						$("body").overhang({
@@ -96,17 +105,15 @@ function send_animal(idhibou){
 							html: true,
 							closeConfirm: true
 						});
-						
 						$('.message').append(debut+count_g+count_s+count_f+list_ingr+fin);
-						$('.close').hide();
 					}
-
 					var total_win = (parseInt($('#val_g').text()) + parseInt(data.response.options.earned));
 					// Ajoute les stats
 					if (type === "ok"){
 						var compteur = parseInt($('#stat_s').text()) + 1;
 						$('#stat_s').text(compteur);
 					}
+
 					else{
 						var compteur = parseInt($('#stat_f').text()) + 1;
 						$('#stat_f').text(compteur);
@@ -116,6 +123,17 @@ function send_animal(idhibou){
 					{
 						var compteur = parseInt($('#qty_ingr').text()) +1;
 						$('#qty_ingr').text(compteur);
+
+						// Ajouter ingrédient dans le modal
+						if ( $('.modal-body').children().hasClass("zone_"+data.response.options.ingredient) ){
+							var resultat = parseInt($('.qty_'+data.response.options.ingredient).text()) + 1;
+							$('.qty_'+data.response.options.ingredient).html(resultat);
+						}
+						else{
+							$('.modal-body').append('<div data-toggle="tooltip" data-placement="top" title="'+data.response.options.nom_ingredient+'" class="col-xs-4 col-sm-2 zone_'+data.response.options.ingredient+'"><img id="modal_ingredient" src = "'
+								+data.response.options.img_ingredient+' "/><span class="badge qty_'+data.response.options.ingredient+'">1</span></div>');
+							$('.zone_'+data.response.options.ingredient).tooltip();
+						}
 					}
 
 					$('#val_g').text(total_win);
@@ -128,9 +146,11 @@ function send_animal(idhibou){
 	});
 }
 
-function add_animation(texte, type, id){
-	
+// Fonction pour créer l'animation du gain du hibou
+function add_animation(texte, type, id, ingredient){
+
 	$('.animation_reward_'+id).html(texte);
+
 	if (type == 'ok'){
 		$('.animation_reward_'+id).css({'color':'#05c320'});
 	}
@@ -138,46 +158,75 @@ function add_animation(texte, type, id){
 		$('.animation_reward_'+id).css({'color':'#de0304'});
 	}
 	
+	if (ingredient !== ""){
+		$('.animation_ingredient_'+id).html("<img class='ingredient_home' src='"+ingredient+"'/>");
+		$('.animation_ingredient_'+id).show();
+		$('.animation_ingredient_'+id).addClass('animated fadeOutUp visible');
+	}
+
 	$('.animation_reward_'+id).show();
 	$('.animation_reward_'+id).addClass('animated fadeOutUp visible');
+
 }
 
 
 function confirmMessage(idhibou){
     if (confirm($('#message_confirm').val())) {
-           
-        	$.ajax({
-		        type:'POST',
-		        data : {"idhibou":idhibou},
-		        url : 'management/release',
-		        success: function(data){
+    	$.ajax({
+	        type:'POST',
+	        data : {"idhibou":idhibou},
+	        url : 'management/release',
+	        success: function(data){
 
-		        	$("#notif_envoi").fadeTo(200,0.1,function()
-					{
-						$(this).html(data.response.options.notification).addClass('messageboxok').fadeTo(900,1,function(){});
-						
-					});
+	        	$("#notif_envoi").fadeTo(200,0.1,function()
+				{
+					$(this).html(data.response.options.notification).addClass('messageboxok').fadeTo(900,1,function(){});
+				});
 
-		        	if(data.response.options.verif){
-		        		$('#hibou_'+idhibou).fadeOut();
-		        	}
-		        }
-		    });
-       }
+	        	if(data.response.options.verif){
+	        		$('#hibou_'+idhibou).fadeOut();
+	        	}
+	        }
+	    });
+    }
 }
 
-function alertoverhang(){
-	$("body").overhang({
-		type: "info",
-		message: "",
-		upper: true
-	});
-
-
+// Fonction pour centrer verticalement le modal bootstrap
+var modalVerticalCenterClass = ".modal";
+function centerModals($element) {
+    var $modals;
+    if ($element.length) {
+        $modals = $element;
+    } else {
+        $modals = $(modalVerticalCenterClass + ':visible');
+    }
+    $modals.each( function(i) {
+        var $clone = $(this).clone().css('display', 'block').appendTo('body');
+        var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+        top = top > 0 ? top : 0;
+        $clone.remove();
+        $(this).find('.modal-content').css("margin-top", top);
+    });
 }
-
-function close(){
-	$overhang.slideDown(attributes.speed, attributes.easing).delay(attributes.duration * 1000).slideUp(attributes.speed, function () {
-        raise(true);
-      });
+$(modalVerticalCenterClass).on('show.bs.modal', function(e) {
+    centerModals($(this));
+});
+$(window).on('resize', centerModals);var modalVerticalCenterClass = ".modal";
+function centerModals($element) {
+    var $modals;
+    if ($element.length) {
+        $modals = $element;
+    } else {
+        $modals = $(modalVerticalCenterClass + ':visible');
+    }
+    $modals.each( function(i) {
+        var $clone = $(this).clone().css('display', 'block').appendTo('body');
+        var top = Math.round(($clone.height() - $clone.find('.modal-content').height()) / 2);
+        top = top > 0 ? top : 0;
+        $clone.remove();
+        $(this).find('.modal-content').css("margin-top", top);
+    });
 }
+$(modalVerticalCenterClass).on('show.bs.modal', function(e) {
+    centerModals($(this));
+});

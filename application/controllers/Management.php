@@ -8,7 +8,7 @@ class Management extends CI_Controller {
 		parent::__construct();
 		$this->lang->load('auth');
 		$this->load->library(array('ion_auth','form_validation'));
-		$this->load->model(array('membre_model', 'management_model'));	
+		$this->load->model(array('membre_model', 'management_model'));
 	}
 
 	public function index()
@@ -119,6 +119,8 @@ class Management extends CI_Controller {
 			$res = '';
 			$checktime='';
 			$result_send = '';
+			$img_ingredient = '';
+			$nom_ingredient = '';
 			$idmembre = $this->session->userdata('user_id');
 			$argent = $this->membre_model->get_argent($idmembre);
 			//$newargent = $argent;
@@ -145,7 +147,11 @@ class Management extends CI_Controller {
 						$nom = addslashes($ingredient_drop['nom']);
 
 						// Statistique total_drop
-						$resultat_ingredient = "<script>toastr.info('Ingrédient gagné : <br/><strong>".$nom."</strong><br/><center> <img src=\'".img_url('ingredients')."/".$ingredient_drop['url'].".png\' width=\'50px\' height=\'50px\'/></center> ', {timeOut: 3000})</script>";
+						//$resultat_ingredient = "<script>toastr.info('Ingrédient gagné : <br/><strong>".$nom."</strong><br/><center> <img src=\'".img_url('ingredients')."/".$ingredient_drop['url'].".png\' width=\'50px\' height=\'50px\'/></center> ', {timeOut: 3000})</script>";
+
+						$resultat_ingredient = $ingredient_drop['url'];
+						$img_ingredient = img_url('ingredients')."/".$ingredient_drop['url'].".png";
+						$nom_ingredient = $nom;
 
 						// Ajout de l'ingredient
 						$this->ingredient_model->add_ingredient($ingredient_drop['id'], $idmembre);
@@ -209,6 +215,8 @@ class Management extends CI_Controller {
 					$jsonResponse->addOption('earned', $argentwin);
 					$jsonResponse->addOption('argent', $newargent);
 					$jsonResponse->addOption('ingredient', $resultat_ingredient);
+					$jsonResponse->addOption('img_ingredient', $img_ingredient);
+					$jsonResponse->addOption('nom_ingredient', $nom_ingredient);
 
 				}
 				else // Si l'animal est en CD

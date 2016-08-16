@@ -8,12 +8,29 @@
 	<div id ='notif_ingredient' style='display:none;'></div>
 	<input type='hidden' id='message_confirm' value='Voulez vous vraiment relâcher cet animal ?'/>
 
+	<div class="modal fade" id="ingredient_list" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        <h4 class="modal-title">Liste des ingrédients récoltés</h4>
+	      </div>
+	      <div class="modal-body col-xs-12">
+	      	<!-- zone des ingrédients -->
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+	      </div>
+	    </div><!-- /.modal-content -->
+	  </div><!-- /.modal-dialog -->
+	</div><!-- /.modal -->
+
 	<h1 class='zone_title'>Vos animaux</h1>
 
 	<div class = 'hidden-sm hidden-xs'>
 		<div id = 'zone_container' class='col-xs-12 line-center'>
 			<div class='col-xs-4 text-center'>
-				<div id = 'count-pigeonnier' class='oswald'>15/20</div>
+				<div id='count-pigeonnier' class='oswald'>15/20</div>
 			</div>
 			<div class='col-xs-4 text-center'>
 				<div id = 'count-pigeonnier' class='oswald'>
@@ -45,14 +62,16 @@
 				<input class='croix' type='button' onclick='confirmMessage(".$animal['id'].")' title='Relâcher votre animal' id='".$animal['id']."' name='id' value='".$animal['id']."' />
 				<div id='hibou' class='hibou_".$animal['id']."'>
 					<div id = 'animation_reward' class='animation_reward_".$animal['id']."' style='display:none;'></div>
-					<img src='".img_url('animaux/'.$animal['idanimal'].'.jpg')."' 'height='120' width='120' id='img_hibou_".$animal['id']."' title ='[ ".$animal['gainmin']." ; ".$animal['gainmax']." ] - ".$animal['succes']." %'>
+					<div id = 'animation_ingredient' class='animation_ingredient_".$animal['id']."' style='display:none;'></div>
+					<img src='".img_url('animaux/'.$animal['idanimal'].'.jpg')."' 'height='120' width='120' data-toggle='tooltip' data-placement='top' id='img_hibou_".$animal['id']."' title ='[ ".$animal['gainmin']." ; ".$animal['gainmax']." ] - ".$animal['succes']." %'>
 				</div>
+
 				<div class='textepigeon' id='lien_".$animal['id']."'>
 				<span id = 'textepigeon_".$animal['id']."'>
 					<span class='".$texte."'>".$animal['nickname']."</span>
 				</span>
 			</div>";
-
+			
 		// Si l'animal est disponible
 		if (time() - $animal['date_utilisation'] >= $animal['cooldown']){
 			echo "<div class ='dispo2' id='dispo_".$animal['id']."'>Disponible</div>
