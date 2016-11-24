@@ -1,8 +1,8 @@
 <div class="container-fluid">
   <div class="row">
-  <?php include('left_part.php'); ?>
+  <?php include('sidebar.php'); ?>
 
-  <div class="col-sm-9 col-lg-10 right-zone">
+  <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 right-zone">
 
 	<div id ='notif_envoi' style='display:none;'></div>
 	<div id ='notif_ingredient' style='display:none;'></div>

@@ -1,0 +1,44 @@
+#case{
+	display: inline-block;
+}
+
+.pion{
+	position:absolute;
+  margin-left: -32px;
+	margin-top: -2px;
+}
+
+#plateau{
+  display:none;
+	text-align: center;
+  margin-top:75px;
+}
+
+#launch{
+	display:block;
+	margin:auto;
+	margin-top: 150px;
+}
+
+#debut_partie{
+  display:block;
+  margin:auto;
+  margin-top:30px;
+}
+
+#cartes{
+  text-align: center;
+}
+
+.carte{
+  display:inline-block;
+}
+
+#title_card{
+  text-align:center;
+}
+
+#card_name{
+  text-align:center;
+  font-size: 22px;
+}

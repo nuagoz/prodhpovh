@@ -49,7 +49,7 @@
               </ul>
 
               <li>
-                <a class='champ_menu' href="<?php echo base_url('home'); ?>"><i class="fa fa-archive" aria-hidden="true"></i> Inventaire</a>
+                <a class='champ_menu' href="<?php echo base_url('inventory'); ?>"><i class="fa fa-archive" aria-hidden="true"></i> Inventaire</a>
               </li>
 
               <li>

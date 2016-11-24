@@ -102,3 +102,7 @@ define('MEMBRE_STATISTIQUE', 'membre_statistique');
 define('STATISTIQUE', 'statistique');
 define('CARTE', 'carte');
 define('POSSEDECARTE', 'possedecarte');
+
+// Cartes crumble
+
+define('CRUMBLE_CARTES', 'crumble_cartes');

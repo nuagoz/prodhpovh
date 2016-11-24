@@ -1,5 +1,8 @@
 $(document).ready(function() {
 
+    // Ajout classe active pour chaque catégorie du menu sur laquelle on se trouve
+    // -> Créer controleur principal qui renvoie nom du controleur actuel + fonction si utilisée
+
     var category_base;
 
     $('a[rel="relativeanchor"]').click(function(){
