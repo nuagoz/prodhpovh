@@ -17,7 +17,7 @@
   
             <ul id="menu-content" class="menu-content collapse out">
                 <li>
-                  <a href="#">
+                  <a href="<?php echo base_url('home'); ?>">
                   <i class="fa fa-user" aria-hidden="true"></i> Profil
                   </a>
                 </li>

@@ -1,7 +1,7 @@
 <div class="container-fluid">
 	<div class="row">
-	<?php include('left_part.php'); ?>
-		<div class="col-sm-9 col-lg-10">
+	<?php include('sidebar.php'); ?>
+		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 right-zone">
 
 		<input type='hidden' id='nb_total_cards' value='<?php echo $nb_cartes; ?>'/>
 		<input type='hidden' id='nb_total_bronze' value='<?php echo $nb_bronze; ?>'/>

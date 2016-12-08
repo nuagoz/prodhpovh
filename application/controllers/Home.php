@@ -26,8 +26,10 @@ class Home extends CI_Controller {
 
 		if ($this->ion_auth->logged_in()){
 
+			$this->load->model('management_model');
 			$data['pseudo'] = $this->session->userdata('pseudo');
 			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['animaux'] = $this->management_model->get_animaux_membre($this->session->userdata('user_id'));
 			$this->layout->view('home_connected', $data);
 		}
 		else{

@@ -798,6 +798,67 @@ vertical-align: middle;
   background-image: url(../../assets/img/fond11.png);
 }
 
+#cadreview_hibou{
+
+  background-image: url(../../assets/img/fond2.png);
+  width:200px;
+  height:197px;
+  box-shadow: 3px 2px 10px 3px;
+  display:inline-block;
+  margin-right:10px;
+  margin-bottom:40px;
+  margin-left:26px;
+}
+
+#cadreview_hibou2{
+
+  background-image: url(../../assets/img/fond22.png);
+  width:200px;
+  height:197px;
+  box-shadow: 3px 2px 10px 3px;
+  display:inline-block;
+  margin-right:10px;
+  margin-bottom:40px;
+  margin-left:26px;
+
+}
+
+#cadreview_hibou3{
+
+  background-image: url(../../assets/img/fond2.png);
+  width:200px;
+  height:197px;
+  box-shadow: 3px 2px 10px 3px;
+  display:inline-block;
+  margin-right:10px;
+  margin-bottom:40px;
+  margin-left:26px;
+
+}
+
+#cadreview_hibou3:hover{
+
+  border: 2px double red;
+  opacity:0.9;
+
+}
+
+#imageview_hibou {
+  margin-top:30px;
+ /* margin-left: 40px; */
+}
+
+#list_profile_hibou{
+  text-align: center;
+}
+
+#nameview_hibou{
+  margin-top:12px;
+  font-size: 16px;
+  color:white;
+  text-shadow: 1px 1px 2px black; 
+}
+
 .croix{
   margin-left:166px;
   margin-top:4px;
@@ -1369,3 +1430,130 @@ vertical-align: middle;
   padding-bottom: 3%;
 }
 /**/
+
+/* USER PROFILE PAGE */
+ .card {
+    margin-top: 20px;
+    padding: 30px;
+    background-color: rgba(214, 224, 226, 0.2);
+    -webkit-border-top-left-radius:5px;
+    -moz-border-top-left-radius:5px;
+    border-top-left-radius:5px;
+    -webkit-border-top-right-radius:5px;
+    -moz-border-top-right-radius:5px;
+    border-top-right-radius:5px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+.card.hovercard {
+    position: relative;
+    padding-top: 0;
+    overflow: hidden;
+    text-align: center;
+    background-color: #fff;
+    background-color: rgba(255, 255, 255, 1);
+}
+.card.hovercard .card-background {
+    height: 260px !important;
+}
+.card-background img {
+    -webkit-filter: blur(25px);
+    -moz-filter: blur(25px);
+    -o-filter: blur(25px);
+    -ms-filter: blur(25px);
+    filter: blur(25px);
+    margin-left: -100px;
+    margin-top: -200px;
+    min-width: 130%;
+}
+.card.hovercard .useravatar {
+    position: absolute;
+    top: 15px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .useravatar img {
+    width: 150px;
+    height: 150px;
+    /*max-width: 100px;
+    max-height: 100px;*/
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: 5px solid rgba(255, 255, 255, 0.5);
+}
+.card.hovercard .card-info {
+    position: absolute;
+    bottom: 15px;
+    left: 0;
+    right: 0;
+}
+.card.hovercard .card-info .card-title {
+    padding:0 5px;
+    font-size: 20px;
+    line-height: 1;
+    color: #262626;
+    background-color: rgba(255, 255, 255, 0.1);
+    -webkit-border-radius: 4px;
+    -moz-border-radius: 4px;
+    border-radius: 4px;
+}
+.card.hovercard .card-info {
+    overflow: hidden;
+    font-size: 12px;
+    line-height: 20px;
+    color: #737373;
+    text-overflow: ellipsis;
+}
+.card.hovercard .bottom {
+    padding: 0 20px;
+    margin-bottom: 17px;
+}
+.btn-pref .btn {
+    -webkit-border-radius:0 !important;
+}
+
+#member_title{
+  font-style: italic;
+}
+
+#pseudo_profile{
+  font-size:48px;
+  color: white;
+  text-shadow: 1px 2px 3px rgba(0,0,0, 0.5);
+  text-transform: capitalize;
+  line-height: 1;
+}
+
+#points_membre{
+  font-size:38px;
+}
+
+#registration_date{
+  font-size:16px;
+  font-style:italic;
+}
+
+.card-titre{
+  margin-top:18px;
+}
+
+.rank-label-container {
+    margin-top: -19px;
+    /* z-index: 1000; */
+    text-align: center;
+}
+
+.label.label-default.rank-label {
+    background-color: rgb(81, 210, 183);
+    padding: 5px 10px 5px 10px;
+    border-radius: 27px;
+    font-size:16px;
+}
+
+#zone_points{
+
+  text-shadow: 1px 2px 3px rgba(0,0,0, 0.5);
+
+}
