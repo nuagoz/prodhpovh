@@ -1,5 +1,7 @@
 $("#launch_game").click(function(){
   turn = true; // Déterminer qui doit jouer
+  GLOB_DEPTH = parseInt($("#sel1").val());
+  $("#lvl").html(GLOB_DEPTH);
   distribution_carte(6);
     $('#form').modal('hide');
     $('#launch').hide();
@@ -21,6 +23,8 @@ $("#debut_partie").click(function(){
        PLATEAU[i] = [];
   determine_equilibre();
   launch_game();
+  $("#domination").removeClass('hidden');
+  $("#level").removeClass('hidden');
   $("#launch").hide();
   $('.carte').hide();
   $(this).hide();
@@ -33,10 +37,19 @@ $("#playagain").click(function(){
   launch_game();
   $("#playagain").addClass("hidden");
   $("#resultat").html("");
+
+    $("#prog_cerise").css({
+    width : "50%"
+    });
+
+    $("#prog_meringue").css({
+      width : "50%"
+    });
+
 });
 
-var glob_debug1 = true;
-var glob_debug2 = true;
+var GLOB_DEPTH;
+
 var CERISE = 1;
 var MERINGUE = 2;
 var VIDE = 0;
@@ -843,6 +856,44 @@ function launch_manual_game(){
   affiche_new_plateau();
 }
 
+function evalue_etat_game(tab){
+  var nb_meringue = 0;
+  var nb_cerise = 0;
+  var cpt_meringue = 0;
+  var cpt_cerise = 0;
+  var total, val_meringue, val_cerise;
+
+  for (var i = 0; i < tab.length; i++){
+    for (var j = 0; j < tab.length; j++){
+      if(tab[i][j] == CERISE){
+        nb_cerise++;
+        cpt_cerise += 20;
+        cpt_meringue += poids_plateau[i][j]; // Favorise les cases au centre
+      }
+      else if (tab[i][j] == MERINGUE){
+        nb_meringue++;
+        cpt_meringue += 20;
+        cpt_meringue += poids_plateau[i][j]; // Favorise les cases au centre
+      }
+      
+    }
+  }
+  total = nb_cerise+nb_meringue;
+
+  val_meringue = nb_meringue*100/total;
+  val_cerise = 100 - val_meringue;
+  $("#nbc").html(nb_cerise);
+  $("#nbm").html(nb_meringue);
+  $("#prog_cerise").css({
+    width : val_cerise+"%"
+  });
+
+  $("#prog_meringue").css({
+    width : val_meringue+"%"
+  });
+
+}
+
 function load_plateau() {
     var i, j, value;
     var nbc = nb_cerise;
@@ -871,7 +922,7 @@ function bot(){
     var startTime = new Date().getTime();
     var elapsedTime = 0;
 
-    dir = simule_coups(PLATEAU, 8);
+    dir = simule_coups(PLATEAU, GLOB_DEPTH);
 
     // Calcul résultat temps d'execution de l'IA
     elapsedTime = new Date().getTime() - startTime;
@@ -882,6 +933,7 @@ function bot(){
     //affiche_plateau();
     affiche_new_plateau();
     check_etat_game(PLATEAU, true);
+    evalue_etat_game(PLATEAU);
     CONTROL = CERISE;
     turn = true;
   }, 350);
@@ -897,7 +949,7 @@ function coup(direction){
     //affiche_plateau();
     affiche_new_plateau();
     check_etat_game(PLATEAU, true);
-
+    evalue_etat_game(PLATEAU);
     bot();
   }
   else{

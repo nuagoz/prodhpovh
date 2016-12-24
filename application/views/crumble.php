@@ -33,7 +33,14 @@
 	                  <div class="form-group">
 	                    <label for="sel1">Niveau de l'ordinateur</label>
 											<select class="form-control" id="sel1">
-												<option>Facile</option>
+												<option>1</option>
+												<option>2</option>
+												<option>3</option>
+												<option>4</option>
+												<option>5</option>
+												<option>6</option>
+												<option>7</option>
+												<option>8</option>
 											</select>
 	                  </div>
 	            </div>
@@ -56,6 +63,23 @@
 		<div id = "resultat"></div>
 		<button type="button" id="playagain" class="btn btn-primary hidden">Rejouer</button>
 		<div id = "cartes"></div>
+
+
+		<div class="bg-primary col-xs-4 col-xs-offset-4 hidden" id = "level">Niveau <span id='lvl'></span></div>
+
+		<div id='domination' class="col-xs-4 col-xs-offset-4 hidden">
+			<h4 class="text-center">Domination du plateau :</h4>
+			<!-- evaluation de la partie -->
+			<div class="progress">
+			  <div id="prog_cerise" class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" style="width:50%">
+			    Cerises : <span id='nbc'>25</span>
+			  </div>
+			  <div id="prog_meringue" class="progress-bar progress-bar-warning progress-bar-striped active" role="progressbar" style="width:50%">
+			    Meringues : <span id='nbm'>24</span>
+			  </div>
+			</div>
+		</div>
+
     <button type="button" id="debut_partie"class="btn btn-warning hidden">Passer l'étape des cartes</button>
 
 		<button class="btn btn-primary hidden control" id='left'>Gauche</button>
