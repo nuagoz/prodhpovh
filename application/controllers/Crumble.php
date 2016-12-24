@@ -14,9 +14,10 @@ class Crumble extends CI_Controller {
 
 	public function index()
 	{
+   // $this->layout->add_js('app');
     $this->layout->add_js('crumble');
     $this->layout->add_css('crumble');
-		$this->layout->view('crumble');
+    $this->layout->view('crumble');
     $_SESSION['cartes'] = array();
 	}
 
@@ -69,4 +70,13 @@ class Crumble extends CI_Controller {
     $jsonResponse->addOption('url', $infos[0]['url']);
     $jsonResponse->render();
   }
+
+  public function multiplayer()
+  {
+    $this->layout->add_js('crumblemulti');
+    $this->layout->add_css('crumble');
+    $this->layout->view('crumblemulti');
+    $_SESSION['cartes'] = array();
+  }
+
 }

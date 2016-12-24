@@ -1,9 +1,3 @@
-//
-// $( document ).ready(function() {
-//   S = 2;
-// });
-
-
 $("#launch_game").click(function(){
   turn = true; // Déterminer qui doit jouer
   distribution_carte(6);
@@ -19,7 +13,7 @@ $("#launch_game").click(function(){
 });
 
 $("#debut_partie").click(function(){
-console.log("partie commencee");
+  console.log("partie commencee");
   $('#plateau').show();
   S = parseInt($("#plateausize").val());
   CASES = S * S;
@@ -35,6 +29,14 @@ console.log("partie commencee");
 
 });
 
+$("#playagain").click(function(){
+  launch_game();
+  $("#playagain").addClass("hidden");
+  $("#resultat").html("");
+});
+
+var glob_debug1 = true;
+var glob_debug2 = true;
 var CERISE = 1;
 var MERINGUE = 2;
 var VIDE = 0;
@@ -50,6 +52,18 @@ var nb_cerise;
 var nb_meringue;
 
 var mouvementType = {"g":0, "h":1, "d":2, "b":3};
+
+/*var poids_plateau = [];
+for (var i = 0; i < 7; i++)
+    poids_plateau[i] = [];*/
+// Poids plateau
+var poids_plateau = [[0, 0, 0, 0, 0, 0, 0],
+                     [0, 2, 2, 2, 2, 2, 0],
+                     [0, 2, 4, 4, 4, 2, 0],
+                     [0, 4, 6, 6, 6, 4, 0],
+                     [0, 2, 4, 4, 4, 2, 0],
+                     [0, 2, 2, 2, 2, 2, 0],
+                     [0, 0, 0, 0, 0, 0, 0]];
 
 
 
@@ -119,6 +133,81 @@ function affiche_new_plateau(){
   }
 
   $("#plateau").html(print);
+
+}
+
+function print_plateau_debug(tab){
+  var print = "";
+  for (var i = 0; i < tab.length; i++) {
+    if(i != 0)
+      print += "<br/>";
+    for (var j = 0; j < tab.length; j++) {
+      print += "<div class='"+i+"x"+j+"' id='case'>";
+      if (tab[i][j] == -1){
+          print += "<img class='case' src = 'assets/img/crumble/broken2.png'/></div>";
+      }
+      else{
+        print += "<img class='case' src = 'assets/img/crumble/case.png'/>";
+        if (tab[i][j] == CERISE)
+          print += "<img class='pion' src = 'assets/img/crumble/cerise.png'/>";
+        else if (tab[i][j] == MERINGUE)
+          print += "<img class='pion' src = 'assets/img/crumble/meringue.png'/>";
+        print += "</div>";
+      }
+    }
+  }
+
+  $("#debug").html(print);
+
+}
+
+function print_plateau_debug2(tab){
+  var print = "";
+  for (var i = 0; i < tab.length; i++) {
+    if(i != 0)
+      print += "<br/>";
+    for (var j = 0; j < tab.length; j++) {
+      print += "<div class='"+i+"x"+j+"' id='case'>";
+      if (tab[i][j] == -1){
+          print += "<img class='case' src = 'assets/img/crumble/broken2.png'/></div>";
+      }
+      else{
+        print += "<img class='case' src = 'assets/img/crumble/case.png'/>";
+        if (tab[i][j] == CERISE)
+          print += "<img class='pion' src = 'assets/img/crumble/cerise.png'/>";
+        else if (tab[i][j] == MERINGUE)
+          print += "<img class='pion' src = 'assets/img/crumble/meringue.png'/>";
+        print += "</div>";
+      }
+    }
+  }
+
+  $("#debug2").html(print);
+
+}
+
+function print_plateau_debug3(tab){
+  var print = "";
+  for (var i = 0; i < tab.length; i++) {
+    if(i != 0)
+      print += "<br/>";
+    for (var j = 0; j < tab.length; j++) {
+      print += "<div class='"+i+"x"+j+"' id='case'>";
+      if (tab[i][j] == -1){
+          print += "<img class='case' src = 'assets/img/crumble/broken2.png'/></div>";
+      }
+      else{
+        print += "<img class='case' src = 'assets/img/crumble/case.png'/>";
+        if (tab[i][j] == CERISE)
+          print += "<img class='pion' src = 'assets/img/crumble/cerise.png'/>";
+        else if (tab[i][j] == MERINGUE)
+          print += "<img class='pion' src = 'assets/img/crumble/meringue.png'/>";
+        print += "</div>";
+      }
+    }
+  }
+
+  $("#debug3").html(print);
 
 }
 
@@ -200,31 +289,32 @@ function distribution_carte(quantite){
 
 function move(direction){
   if (direction == mouvementType.g)
-    deplacer_gauche(0, PLATEAU.length-1, 0, false, PLATEAU);
+    deplacer_gauche(0, PLATEAU.length-1, 0, false, PLATEAU, CONTROL);
   if (direction == mouvementType.h)
-    deplacer_haut(PLATEAU.length-1, 0, 0, false, PLATEAU);
+    deplacer_haut(PLATEAU.length-1, 0, 0, false, PLATEAU, CONTROL);
   if (direction == mouvementType.d)
-    deplacer_droite(0, 0, 0, false, PLATEAU);
+    deplacer_droite(0, 0, 0, false, PLATEAU, CONTROL);
   if (direction == mouvementType.b)
-    deplacer_bas(0, 0, 0, false, PLATEAU);
+    deplacer_bas(0, 0, 0, false, PLATEAU, CONTROL);
+  console.log("deplacement ok");
 }
 
-function deplacer_droite(x, y, val, treatment, tableau){
+function deplacer_droite(x, y, val, treatment, tableau, control){
 
   var tmp;
   if(y == tableau.length-1){
     if (val != 0 && tableau[x][y] != -1)
       tableau[x][y] = val;
-    else if(tableau[x][y] == CONTROL)
+    else if(tableau[x][y] == control)
         tableau[x][y] = 0;
     if(x < tableau.length-1) // S'il est inférieur, il reste forcément des cases du tableau à traiter. Sinon c'est que c'est terminé
-      deplacer_droite(x+1, 0, 0, false, tableau);
+      deplacer_droite(x+1, 0, 0, false, tableau, control);
   }
   else { // Si la case actuelle ne correspond pas au CONTROL et qu'il n'y a pas de traitement en cours
-    if(tableau[x][y] != CONTROL && !treatment){
+    if(tableau[x][y] != control && !treatment){
       if (val != 0 && tableau[x][y] != -1)
         tableau[x][y] = val;
-      deplacer_droite(x, y+1, 0, false, tableau);
+      deplacer_droite(x, y+1, 0, false, tableau, control);
     }
     else if (treatment){ // Si un traitement est en cours
       tmp = tableau[x][y];
@@ -233,35 +323,35 @@ function deplacer_droite(x, y, val, treatment, tableau){
       if (tableau[x][y+1] == 0 || tableau[x][y+1] == -1){ // Si la prochaine case est vide ou cassée
         treatment = false; // On sort du traitement
       }
-      deplacer_droite(x, y+1, val, treatment, tableau);
+      deplacer_droite(x, y+1, val, treatment, tableau, control);
     }
     else{ // Si CONTROL a été trouvé sur la ligne, on commence à traiter
       val = tableau[x][y];
       tableau[x][y] = 0; // On met une case vide car ce premier pion a été poussé
       if (tableau[x][y+1] != 0 && tableau[x][y+1] != -1)
         treatment = true;
-      deplacer_droite(x, y+1, val, treatment, tableau);
+      deplacer_droite(x, y+1, val, treatment, tableau, control);
     }
   }
 
 }
 
-function deplacer_gauche(x, y, val, treatment, tableau){
+function deplacer_gauche(x, y, val, treatment, tableau, control){
 
   var tmp;
   if(y == 0){
     if (val != 0 && tableau[x][y] != -1)
       tableau[x][y] = val;
-    else if(tableau[x][y] == CONTROL)
+    else if(tableau[x][y] == control)
         tableau[x][y] = 0;
     if(x < tableau.length-1) // S'il est inférieur, il reste forcément des cases du tableau à traiter. Sinon c'est que c'est terminé
-      deplacer_gauche(x+1, tableau.length-1, 0, false, tableau);
+      deplacer_gauche(x+1, tableau.length-1, 0, false, tableau, control);
   }
   else { // Si la case actuelle ne correspond pas au CONTROL et qu'il n'y a pas de traitement en cours
-    if(tableau[x][y] != CONTROL && !treatment){
+    if(tableau[x][y] != control && !treatment){
       if (val != 0 && tableau[x][y] != -1)
         tableau[x][y] = val;
-      deplacer_gauche(x, y-1, 0, false, tableau);
+      deplacer_gauche(x, y-1, 0, false, tableau, control);
     }
     else if (treatment){ // Si un traitement est en cours
       tmp = tableau[x][y];
@@ -270,35 +360,35 @@ function deplacer_gauche(x, y, val, treatment, tableau){
       if (tableau[x][y-1] == 0 || tableau[x][y-1] == -1){ // Si la prochaine case est vide ou cassée
         treatment = false; // On sort du traitement
       }
-      deplacer_gauche(x, y-1, val, treatment, tableau);
+      deplacer_gauche(x, y-1, val, treatment, tableau, control);
     }
     else{ // Si CONTROL a été trouvé sur la ligne, on commence à traiter
       val = tableau[x][y];
       tableau[x][y] = 0; // On met une case vide car ce premier pion a été poussé
       if (tableau[x][y-1] != 0 && tableau[x][y-1] != -1)
         treatment = true;
-      deplacer_gauche(x, y-1, val, treatment, tableau);
+      deplacer_gauche(x, y-1, val, treatment, tableau, control);
     }
   }
 
 }
 
-function deplacer_haut(x, y, val, treatment, tableau){
+function deplacer_haut(x, y, val, treatment, tableau, control){
 
   var tmp;
   if(x == 0){
     if (val != 0 && tableau[x][y] != -1)
       tableau[x][y] = val;
-    else if(tableau[x][y] == CONTROL)
+    else if(tableau[x][y] == control)
         tableau[x][y] = 0;
     if(y < tableau.length-1) // S'il est inférieur, il reste forcément des cases du tableau à traiter. Sinon c'est que c'est terminé
-      deplacer_haut(tableau.length-1, y+1, 0, false, tableau);
+      deplacer_haut(tableau.length-1, y+1, 0, false, tableau, control);
   }
   else { // Si la case actuelle ne correspond pas au CONTROL et qu'il n'y a pas de traitement en cours
-    if(tableau[x][y] != CONTROL && !treatment){
+    if(tableau[x][y] != control && !treatment){
       if (val != 0 && tableau[x][y] != -1)
         tableau[x][y] = val;
-      deplacer_haut(x-1, y, 0, false, tableau);
+      deplacer_haut(x-1, y, 0, false, tableau, control);
     }
     else if (treatment){ // Si un traitement est en cours
       tmp = tableau[x][y];
@@ -307,35 +397,35 @@ function deplacer_haut(x, y, val, treatment, tableau){
       if (tableau[x-1][y] == 0 || tableau[x-1][y] == -1){ // Si la prochaine case est vide ou cassée
         treatment = false; // On sort du traitement
       }
-      deplacer_haut(x-1, y, val, treatment, tableau);
+      deplacer_haut(x-1, y, val, treatment, tableau, control);
     }
     else{ // Si CONTROL a été trouvé sur la ligne, on commence à traiter
       val = tableau[x][y];
       tableau[x][y] = 0; // On met une case vide car ce premier pion a été poussé
       if (tableau[x-1][y] != 0 && tableau[x-1][y] != -1)
         treatment = true;
-      deplacer_haut(x-1, y, val, treatment, tableau);
+      deplacer_haut(x-1, y, val, treatment, tableau, control);
     }
   }
 
 }
 
-function deplacer_bas(x, y, val, treatment, tableau){
+function deplacer_bas(x, y, val, treatment, tableau, control){
 
   var tmp;
   if(x == tableau.length-1){
     if (val != 0 && tableau[x][y] != -1)
       tableau[x][y] = val;
-    else if(tableau[x][y] == CONTROL)
+    else if(tableau[x][y] == control)
         tableau[x][y] = 0;
     if(y < tableau.length-1) // S'il est inférieur, il reste forcément des cases du tableau à traiter. Sinon c'est que c'est terminé
-      deplacer_bas(0, y+1, 0, false, tableau);
+      deplacer_bas(0, y+1, 0, false, tableau, control);
   }
   else { // Si la case actuelle ne correspond pas au CONTROL et qu'il n'y a pas de traitement en cours
-    if(tableau[x][y] != CONTROL && !treatment){
+    if(tableau[x][y] != control && !treatment){
       if (val != 0 && tableau[x][y] != -1)
         tableau[x][y] = val;
-      deplacer_bas(x+1, y, 0, false, tableau);
+      deplacer_bas(x+1, y, 0, false, tableau, control);
     }
     else if (treatment){ // Si un traitement est en cours
       tmp = tableau[x][y];
@@ -344,14 +434,14 @@ function deplacer_bas(x, y, val, treatment, tableau){
       if (tableau[x+1][y] == 0 || tableau[x+1][y] == -1){ // Si la prochaine case est vide ou cassée
         treatment = false; // On sort du traitement
       }
-      deplacer_bas(x+1, y, val, treatment, tableau);
+      deplacer_bas(x+1, y, val, treatment, tableau, control);
     }
     else{ // Si CONTROL a été trouvé sur la ligne, on commence à traiter
       val = tableau[x][y];
       tableau[x][y] = 0; // On met une case vide car ce premier pion a été poussé
       if (tableau[x+1][y] != 0 && tableau[x+1][y] != -1)
         treatment = true;
-      deplacer_bas(x+1, y, val, treatment, tableau);
+      deplacer_bas(x+1, y, val, treatment, tableau, control);
     }
   }
 
@@ -459,51 +549,225 @@ function eval_tab(tableau){
   var player;
   var opponent;
   if (CONTROL == CERISE){
-    player = CERISE;
-    opponent = MERINGUE
-  }
-  else{
     player = MERINGUE;
     opponent = CERISE
+  }
+  else{
+    player = CERISE;
+    opponent = MERINGUE
   }
 
   var compteur = 0;
   for (var i = 0; i < tableau.length; i++){
     for (var j = 0; j < tableau.length; j++){
       if(tableau[i][j] == player)
-        compteur+= 100;
+        compteur -= 100;
       else if (tableau[i][j] == opponent)
-        compteur-= 110;
+        compteur += 110;
     }
   }
   return compteur;
 }
 
+function essai(tab){
+  var temp_tab = [];
+    for (var i = 0; i < S; i++)
+        temp_tab[i] = [];
+  copy_tab(temp_tab, tab);
+  console.log(is_equal(temp_tab,tab));
+  console.log("val = "+ tab);
+  deplacer_gauche(0, tab.length-1, 0, false, tab);
+  console.log(is_equal(temp_tab,tab));
+  console.log("val = " + tab);
+  console.log(tab);
+  copy_tab(tab, temp_tab);
+  console.log(is_equal(temp_tab,tab));
+}
+
+function is_equal(tab1, tab2){
+  var res = true;f
+  for (var i = 0; i <S;i++){
+    for (var j=0; j <S; j++){
+      if(tab1[i][j] != tab2[i][j])
+        res = false;
+    }
+  }
+    return res;
+}
 /* Min-Max */
 
-function simule_coups(plateau, profondeur){
+function simule_coups(tab, depth){
+  var debug=true;
+  var val, type;
+  var max_val = -10000;
+  var temp_tab = [];
+    for (var i = 0; i < S; i++)
+        temp_tab[i] = [];
+  copy_tab(temp_tab, tab);
 
+  for (var i = 0; i < 4; i++){
+    if (i == 0){
+      deplacer_gauche(0, tab.length-1, 0, false, tab, MERINGUE);
+      type = mouvementType.g;
+    }
+    else if (i == 1){
+      deplacer_haut(tab.length-1, 0, 0, false, tab, MERINGUE);
+      type = mouvementType.h;
+    }
+    else if (i == 2){
+      deplacer_droite(0, 0, 0, false, tab, MERINGUE);
+      type = mouvementType.d
+    }
+    else{
+      deplacer_bas(0, 0, 0, false, tab, MERINGUE);
+      type = mouvementType.b;
+    }
+    check_destruction(tab);
+
+    val = min(tab, depth);
+
+    if (val > max_val){
+      max_val = val;
+      meilleur_coup = type;
+    }
+
+    copy_tab(tab, temp_tab); // Annule le coup
+
+  }
+  console.log("minmax terminé, meilleur coup : "+meilleur_coup+" pour une max_val de : "+max_val);
+  return meilleur_coup;
 }
 
-function min(){
-  return 0;
+function min(tab, depth){
+  var min_val;
+  var temp_tab = [];
+    for (var i = 0; i < S; i++)
+        temp_tab[i] = [];
+  copy_tab(temp_tab, tab);
+
+  if (depth == 0 || !check_etat_game(tab, false)){
+    return eval(tab);
+  }
+  min_val = 10000;
+
+  for (var i = 0; i < 4; i++){
+    if (i == 0){
+      deplacer_gauche(0, tab.length-1, 0, false, tab, CERISE);
+    }
+    else if (i == 1){
+      deplacer_haut(tab.length-1, 0, 0, false, tab, CERISE);
+    }
+    else if (i == 2){
+      deplacer_droite(0, 0, 0, false, tab, CERISE);
+    }
+    else{
+      deplacer_bas(0, 0, 0, false, tab, CERISE);
+    }
+    check_destruction(tab);
+
+    val = max(tab, depth-1);
+
+    if (val < min_val)
+      min_val = val;
+
+    copy_tab(tab, temp_tab); // Annule le coup
+
+  }
+  return min_val;
 }
 
-function max(){
-  return 0;
+function max(tab, depth){
+  var max_val;
+  var temp_tab = [];
+    for (var i = 0; i < S; i++)
+        temp_tab[i] = [];
+  copy_tab(temp_tab, tab);
+
+  if (depth == 0 || !check_etat_game(tab, false)){
+    return eval(tab);
+  }
+  max_val = -10000;
+
+  for (var i = 0; i < 4; i++){
+    if (i == 0){
+      deplacer_gauche(0, tab.length-1, 0, false, tab, MERINGUE);
+    }
+    else if (i == 1){
+      deplacer_haut(tab.length-1, 0, 0, false, tab, MERINGUE);
+    }
+    else if (i == 2){
+      deplacer_droite(0, 0, 0, false, tab, MERINGUE);
+    }
+    else{
+      deplacer_bas(0, 0, 0, false, tab, MERINGUE);
+    }
+
+    check_destruction(tab);
+
+    val = min(tab, depth-1);
+
+    if (val > max_val)
+      max_val = val;
+
+    copy_tab(tab, temp_tab); // Annule le coup
+  }
+  return max_val;
+}
+
+/* alternate min-max algorithm */
+
+
+/* end */
+
+function eval(tab)
+{
+  var player;
+  var opponent;
+
+/*  if (CONTROL == CERISE){
+    player = MERINGUE;
+    opponent = CERISE
+  }
+  else{
+    player = CERISE;
+    opponent = MERINGUE
+  }*/
+
+  var compteur = 0;
+  if(!check_etat_game(tab, false) && is_winner(MERINGUE, tab)){
+    compteur += 1000;
+  }
+  else if (!check_etat_game(tab, false) && is_winner(CERISE, tab)){
+    compteur -= 1000;
+  }
+
+for (var i = 0; i < tab.length; i++){
+    for (var j = 0; j < tab.length; j++){
+      if(tab[i][j] == CERISE){
+        compteur -= 100;
+        compteur -= poids_plateau[i][j]; // Favorise les cases au centre
+      }
+      else if (tab[i][j] == MERINGUE){
+        compteur += 100;
+        compteur += poids_plateau[i][j]; // Favorise les cases au centre
+      }
+      
+    }
+  }
+  return compteur;
 }
 /* Fin Min-Max */
 
 // Fonction qui permet de voir si la partie est terminée et qui a gagné
-function check_etat_game(){
+function check_etat_game(tab, print_result){ // renvoie true si la partie est en cours
   var cerises = false;
   var meringues = false;
 
-  for (var i = 0; i < PLATEAU.length; i++){
-    for (var j = 0; j < PLATEAU.length; j++){
-      if (PLATEAU[i][j] == CERISE)
+  for (var i = 0; i < tab.length; i++){
+    for (var j = 0; j < tab.length; j++){
+      if (tab[i][j] == CERISE)
         cerises = true;
-      if (PLATEAU[i][j] == MERINGUE)
+      if (tab[i][j] == MERINGUE)
         meringues = true;
     }
     if (cerises && meringues) // On arrête de chercher si on a trouvé au moins une cerise et une meringue
@@ -511,21 +775,73 @@ function check_etat_game(){
   }
 
   if (cerises && !meringues){
-    alert("Victoire des cerises");
+    if (print_result){
+      $("#resultat").html("<div id='victoire'>Victoire !</div>");
+      $("#playagain").removeClass("hidden");
+    }
+    //console.log("Victoire des cerises");
     return false;
   }
   else if (!cerises && meringues){
-    alert("Victoire des meringues");
+    if (print_result){
+      $("#resultat").html("<div id='defaite'>Défaite !</div>");
+      $("#playagain").removeClass("hidden");
+    }
+    //console.log("Victoire des meringues");
     return false;
   }
   else{
     return true;
   }
+}
 
+// Fonction qui retourne "true" si le joueur entré en paramètre est gagnant
+function is_winner(player, tab){
+
+  var cerises = false;
+  var meringues = false;
+
+  for (var i = 0; i < tab.length; i++){
+    for (var j = 0; j < tab.length; j++){
+      if (tab[i][j] == CERISE)
+        cerises = true;
+      if (tab[i][j] == MERINGUE)
+        meringues = true;
+    }
+    if (cerises && meringues) // On arrête de chercher si on a trouvé au moins une cerise et une meringue
+      break;
+  }
+
+  if (cerises && !meringues){
+    if(player == CERISE)
+      return true;
+  }
+  else if (!cerises && meringues){
+    if(player == MERINGUE)
+      return true;
+  }
+
+  return false;
 
 }
 
-
+function launch_manual_game(){
+/*  PLATEAU = [[-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, 1, 0, 0, 0, -1],
+            [-1, -1, 0, 0, 0, 1, -1],
+            [-1, -1, 0, 2, 0, 0, -1],
+            [-1, -1, -1, -1, -1, -1, -1]];*/
+    PLATEAU = [[-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, -1, -1, -1, -1, -1],
+            [-1, -1, 2, 0, 0, 0, -1],
+            [-1, -1, 0, 1, 0, 2, -1],
+            [-1, -1, -1, -1, -1, -1, -1]];
+  affiche_new_plateau();
+}
 
 function load_plateau() {
     var i, j, value;
@@ -548,27 +864,40 @@ function load_plateau() {
 }
 
 function bot(){
-  setTimeout(function(){
+  
     CONTROL = MERINGUE;
-    dir = IA();
+    setTimeout(function(){
+    // Mesure temps d'execution de l'IA
+    var startTime = new Date().getTime();
+    var elapsedTime = 0;
+
+    dir = simule_coups(PLATEAU, 8);
+
+    // Calcul résultat temps d'execution de l'IA
+    elapsedTime = new Date().getTime() - startTime;
+    console.log("IA time exec : " + elapsedTime + "ms");
+    
     move(dir);
     check_destruction(PLATEAU);
     //affiche_plateau();
     affiche_new_plateau();
-    check_etat_game();
+    check_etat_game(PLATEAU, true);
     CONTROL = CERISE;
     turn = true;
-  }, 1000);
+  }, 350);
 }
 
 function coup(direction){
   if (turn){
+    var coup_a_jouer;
+    console.log("debut");
     turn = false;
     move(direction);
     check_destruction(PLATEAU);
     //affiche_plateau();
     affiche_new_plateau();
-    check_etat_game();
+    check_etat_game(PLATEAU, true);
+
     bot();
   }
   else{

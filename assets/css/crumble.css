@@ -26,6 +26,12 @@
   margin-top:30px;
 }
 
+#playagain{
+  display:block;
+  margin:auto;
+  margin-top:30px;
+}
+
 #cartes{
   text-align: center;
 }
@@ -41,4 +47,27 @@
 #card_name{
   text-align:center;
   font-size: 22px;
+}
+
+#text_load{
+  text-align:center;
+  margin-top:15%;
+  font-size:26px;
+}
+
+#cancel{
+  display:block;
+  margin:auto;
+}
+
+#resultat{
+  text-align: center;
+}
+
+#victoire{
+  color:green;
+}
+
+#defaite{
+  color:red;
 }

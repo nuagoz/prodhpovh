@@ -1,3 +1,5 @@
+<!-- <script src="node_modules/socket.io-client/dist/socket.io.js"></script> -->
+
 <button type="button" id="launch" data-toggle="modal" data-target="#form" class="btn btn-warning">Lancer une partie</button>
 <h1 id = 'title_card' class='hidden' >Choisissez vos cartes</h1>
 <p id = 'card_name' class="bg-primary hidden">Nom</p>
@@ -51,7 +53,8 @@
 	</div>
 
 		<div id = "plateau"></div>
-
+		<div id = "resultat"></div>
+		<button type="button" id="playagain" class="btn btn-primary hidden">Rejouer</button>
 		<div id = "cartes"></div>
     <button type="button" id="debut_partie"class="btn btn-warning hidden">Passer l'étape des cartes</button>
 
