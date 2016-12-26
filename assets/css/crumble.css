@@ -85,3 +85,16 @@
   margin-top:20px;
   text-align: center;
 }
+
+.right_move{
+  color:red;
+}
+
+#anim_option{
+  margin-top: 15px;
+}
+
+#mobile_controls{
+  margin-top 10px;
+  text-align: center;
+}
