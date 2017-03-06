@@ -1,11 +1,11 @@
 <div class="container-fluid">
   <div class="row">
-  <?php include('left_part.php'); ?>
-
-    <div class="col-sm-9 col-lg-10 right-zone">
+  <?php include('sidebar.php'); ?>
+    <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 right-zone">
 
       <div class="container">
           <div class="row">
+          <!-- VERSION 
             <div id="no-more-tables">
               <div class = ''>
                 <table class="col-sm-12 table-classement table-bordered table-striped table-condensed cf table-fill">
@@ -52,7 +52,38 @@
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> -->
+
+         
+                <table class="table table-bordered">
+                  <thead>
+                    <tr>
+                      <th>Position</th>
+                      <th>Pseudo</th>
+                      <th>Points</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php 
+                      $table = "";
+                      foreach ($rank as $key => $value):
+                        $key += 1;
+                        $table .= "<tr>";
+                          $table .= "<td>".$key."</td>";
+                          $table .= "<td>";
+                          $table .= "<a href = '".base_url('profile/member')."/".$value['id']."'>";
+                          $table .= $value['pseudo'];
+                          $table .= "</a>";
+                          $table .= "</td>";
+                          $table .= "<td>".$value['points']."</td>";
+                        $table .= "<tr>";
+                      endforeach;
+                    echo $table;
+                    ?>
+                  </tbody>
+                </table>
+
+
         </div>
       </div>
     </div>

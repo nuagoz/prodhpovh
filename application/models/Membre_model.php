@@ -3,7 +3,6 @@
 class Membre_model extends CI_Model
 {
 
-
 	public function update_membre($idmembre, $data)
 	{
 

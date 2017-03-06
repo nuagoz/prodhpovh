@@ -11,6 +11,9 @@ class Rank extends CI_Controller {
 
 			$data['pseudo'] = $this->session->userdata('pseudo');
 			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+
+			// Infos classement
+			$data['rank'] = $this->membre_model->classement();
 			$this->layout->view('rank', $data);
 		}
 		else{

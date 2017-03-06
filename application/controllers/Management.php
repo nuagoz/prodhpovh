@@ -61,6 +61,13 @@ class Management extends CI_Controller {
 
 	}
 
+	public function potions()
+	{
+		$data['pseudo'] = $this->session->userdata('pseudo');
+		$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+		$this->layout->view('potions', $data);
+	}
+
 	public function release()
 	{
 		if($this->ion_auth->logged_in() && !empty($_POST))

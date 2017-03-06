@@ -11,6 +11,11 @@ body{
 
 /* Classes */
 
+.img-center{
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .harrypotter{
     font-family: "harryp";
 }
@@ -577,165 +582,7 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 /********************************/
 /*           Rank table         */
 /********************************/
-.table-classement{
-  margin: 0 auto;
-height: 0 auto;
-padding: 8px; 
-background: #FCFAE1;
-border:3px solid black;
-border-radius:20px;
--webkit-border-radius:5px;
--moz-border-radius:5px;
 
-  border-image-slice: 36 40 36 39;
-border-image-width: 22px 25px 22px 25px;
-border-image-outset: 0px 0px 0px 0px;
-border-image-repeat: repeat repeat;
-border-image-source:  url(../../assets/img/cadre_rougor.jpg);
-}
-
-
-#cadre_classement h3{
-text-align : center;
-font-size: 2em;
-
-}
-
-.table-fill {
-  background: white;
-  border-radius:3px;
-  border-collapse: collapse;
-  margin-top: 9px;
-  margin-bottom: 10px;
-  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-}
- 
-th {
-  color:#D5DDE5;;
-  background:#1b1e24;
-  border-bottom:4px solid #9ea7af;
-  border-right: 1px solid #343a45;
-  font-size:23px;
-
-  padding:12px;
-  text-align: middle;
-  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
-  vertical-align:middle;
-}
-
-th:first-child {
-  border-top-left-radius:3px;
-}
- 
-th:last-child {
-  border-top-right-radius:3px;
-  border-right:none;
-}
-  
-tr {
-  border-top: 1px solid #C1C3D1;
-  border-bottom-: 1px solid #C1C3D1;
-  color:#666B85;
-  text-shadow: 0 1px 1px rgba(256, 256, 256, 0.1);
-}
- 
-tr:hover td {
-  background:#4E5066;
-  color:#FFFFFF;
-  border-top: 1px solid #22262e;
-  border-bottom: 1px solid #22262e;
-}
- 
-tr:first-child {
-  border-top:none;
-}
-
-tr:last-child {
-  border-bottom:none;
-}
- 
-tr:nth-child(odd) td {
-  background:#EBEBEB;
-}
- 
-tr:nth-child(odd):hover td {
-  background:#4E5066;
-}
-
-tr:last-child td:first-child {
-  border-bottom-left-radius:3px;
-}
- 
-tr:last-child td:last-child {
-  border-bottom-right-radius:3px;
-}
- 
-td {
-  background:#FFFFFF;
-  padding: 10px;
-  text-align:center;
-  vertical-align:middle;
-  font-size:18px;
-  text-shadow: -1px -1px 1px rgba(0, 0, 0, 0.1);
-  border-right: 1px solid #C1C3D1;
-}
-td img{
-margin-right: 30px;
-margin-left: -30px;
-vertical-align: middle;
-}
-
-
-
-@media only screen and (max-width: 800px) {
-    
-    /* Force table to not be like tables anymore */
-  #no-more-tables table, 
-  #no-more-tables thead, 
-  #no-more-tables tbody, 
-  #no-more-tables th, 
-  #no-more-tables td, 
-  #no-more-tables tr { 
-    display: block; 
-  }
- 
-  /* Hide table headers (but not display: none;, for accessibility) */
-  #no-more-tables thead tr { 
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
- 
-  #no-more-tables tr { border: 1px solid #ccc; }
- 
-  #no-more-tables td { 
-    /* Behave  like a "row" */
-    border: none;
-    border-bottom: 1px solid #eee; 
-    position: relative;
-    padding-left: 50%; 
-    white-space: normal;
-    text-align:left;
-  }
- 
-  #no-more-tables td:before { 
-    /* Now like a table header */
-    position: absolute;
-    /* Top/left values mimic padding */
-    top: 6px;
-    left: 6px;
-    width: 45%; 
-    padding-right: 10px; 
-    white-space: nowrap;
-    text-align:left;
-    font-weight: bold;
-  }
- 
-  /*
-  Label the data
-  */
-  #no-more-tables td:before { content: attr(data-title); }
-}
 
 
 /********************************/
@@ -1556,4 +1403,46 @@ vertical-align: middle;
 
   text-shadow: 1px 2px 3px rgba(0,0,0, 0.5);
 
+}
+
+#deconnexion{
+  bottom:0;
+  position:absolute;
+}
+
+/********************************/
+/*          Potions CSS         */
+/********************************/
+
+#zone_ingredients{
+  background-color:red;
+  height:300px;
+}
+
+#zone_chaudron{
+  background-color:green;
+  height:300px;
+}
+
+#zone_recettes{
+  background-color:blue;
+  height:300px;
+}
+
+/********************************/
+/*        Quidditch CSS         */
+/********************************/
+
+.card_quidditch{
+  margin-bottom:15px;
+  width:150px;
+}
+
+.logo_team{
+  width:36px;
+  margin-right:10px;
+}
+
+.rankpoints{
+  font-weight: 800;
 }

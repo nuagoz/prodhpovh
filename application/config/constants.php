@@ -102,6 +102,9 @@ define('MEMBRE_STATISTIQUE', 'membre_statistique');
 define('STATISTIQUE', 'statistique');
 define('CARTE', 'carte');
 define('POSSEDECARTE', 'possedecarte');
+define('EQUIPES_QUIDDITCH', 'equipes_quidditch');
+define('QUIDDITCH_RANK', 'quidditch_rank');
+
 
 // Cartes crumble
 

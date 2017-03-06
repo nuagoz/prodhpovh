@@ -31,6 +31,11 @@
                     <li><a href="<?php echo base_url('home'); ?>">Potions</a></li>
                 </ul>
 
+                <li>
+                  <a href="<?php echo base_url('quidditch'); ?>">
+                    <i class="fa fa-futbol-o" aria-hidden="true"></i> Quidditch
+                  </a>
+                </li>
 
                 <li data-toggle="collapse" data-target="#service" class="collapsed">
                   <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Chemin de Traverse <span class="arrow"></span></a>
@@ -57,6 +62,10 @@
                   <a href="<?php echo base_url('rank'); ?>">
                   <i class="fa fa-users fa-lg"></i> Classement
                   </a>
+                </li>
+
+                <li id="deconnexion">
+                  <button type="button" class="btn btn-danger btn-block">Déconnexion</button>
                 </li>
 
             </ul>
