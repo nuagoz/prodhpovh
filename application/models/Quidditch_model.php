@@ -29,4 +29,9 @@ class Quidditch_model extends CI_Model
 		return $this->db->get($this->db->protect_identifiers(QUIDDITCH_RANK))->result_array();
 	}
 
+	public function get_match_date()
+	{
+		return $this->db->get($this->db->protect_identifiers(QUIDDITCH_VARIABLES))->row_array();
+	}
+
 }

@@ -1446,3 +1446,31 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 .rankpoints{
   font-weight: 800;
 }
+
+#timer_quidditch{
+  font-size: 56px;
+}
+
+#infos_timer{
+  margin-left:29px;
+}
+
+#timer_day{
+  margin-right: 31px;
+}
+
+#timer_hours{
+  margin-right: 23px;
+}
+
+#timer_minutes{
+  margin-right: 16px;
+}
+
+#timer_seconds{
+  margin-right: 16px;
+}
+
+#directmatches{
+  margin-top:20px;
+}

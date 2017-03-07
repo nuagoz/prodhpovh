@@ -1,6 +1,6 @@
 <div class="col-sm-3 col-lg-2 nav-side-menu no-padding">
     <div class="brand">
-    Brand Logo
+    Hpovh
       <span class = "visible-xs g_value oswald" id = "mobile_qty_gallions"><?= $argent; ?> <img id='img_gallion' src='<?php echo img_url('gallion2.png'); ?>'/></span>
     </div>
     <div id="infos_user" class="text-center oswald">
@@ -65,7 +65,9 @@
                 </li>
 
                 <li id="deconnexion">
-                  <button type="button" class="btn btn-danger btn-block">Déconnexion</button>
+                  <a href="<?php echo base_url('auth/logout'); ?>">
+                    <button type="button" class="btn btn-danger btn-block">Déconnexion</button>
+                  </a>
                 </li>
 
             </ul>

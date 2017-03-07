@@ -3,11 +3,34 @@
 	<?php include('sidebar.php'); ?>
 		<div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 right-zone">
 			<img class="img-responsive img-center" src = "<?php echo img_url('quidditch_background2.jpg'); ?>">
+			<input type="hidden" id='date_next_match' value="<?=$date['next_match_date']; ?>"/>
+			<input type="hidden" id='match_en_cours' value="<?=$date['match_en_cours']; ?>"/>
 
-			<div id = "option_quidditch">
-				<button type="button" class="btn btn-primary">Liste des équipes</button>
-				<button type="button" class="btn btn-primary">Classement</button>
-				<button type="button" class="btn btn-primary">Matchs en direct</button>
+			<?php if($date['match_en_cours'] == 0): // Affichage du compteur s'il n'y a pas de match en cours?>
+				<h1 class="oswald text-center">Début des matchs dans : </h1>
+				<div id="timer_quidditch" class="oswald text-center">
+					<span id="quidditch_days">00</span>
+					<span id="quidditch_hours">00</span>
+					<span id="quidditch_minutes">00</span>
+					<span id="quidditch_seconds">00</span>
+				</div>
+				<div id="infos_timer" class="oswald text-center">
+					<span id="timer_day">Jours</span>
+					<span id="timer_hours">Heures</span>
+					<span id="timer_minutes">Minutes</span>
+					<span id="timer_seconds">Secondes</span>
+				</div>
+			<?php 
+			else: // Sinon affichage de la visualisation des matchs ?>
+				<h1 class="oswald text-center">Des matchs sont en cours : </h1>
+				<div id="container_but" class="text-center">
+					<button type="button" id="directmatches" class="btn btn-primary">Voir les matchs en direct</button>
+				</div>
+			<?php endif; ?>
+			<br/><br/>
+			<div id = "option_quidditch" class="text-center">
+				<a href="<?=base_url('quidditch/teams'); ?>"><button type="button" class="btn btn-primary">Liste des équipes</button></a>
+				<a href="<?=base_url('quidditch/rank'); ?>"><button type="button" class="btn btn-primary">Classement</button></a>
 			</div>
   		</div>
 	</div>
