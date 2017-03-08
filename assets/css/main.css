@@ -60,6 +60,10 @@ body{
   padding-right: 0px !important;
 }
 
+.no-margin{
+  margin:0 !important;
+}
+
 /* Ajout options responsives pour BS */
 
 @media screen and (max-width: 768px) {
@@ -1473,4 +1477,17 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 
 #directmatches{
   margin-top:20px;
+}
+
+.versus_quidditch{
+  margin-bottom :10px;
+}
+
+.logo_quidditch{
+  width:33px;
+  margin-top:5px;
+}
+
+.okok{
+  position:absolute;
 }

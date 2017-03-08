@@ -13,7 +13,16 @@ class Quidditch extends CI_Controller {
 
 			$data['pseudo'] = $this->session->userdata('pseudo');
 			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
-			$data['date'] = $this->quidditch_model->get_match_date();
+			$data['date'] = $this->quidditch_model->get_quidditch_variables();
+
+			$data['matches'] = $this->quidditch_model->get_matches($data['date']['semaine']);
+
+			foreach($data['matches'] as $key => $value)
+			{
+				$data['equipe1'][$key] = $this->quidditch_model->get_team($data['matches'][$key]['idequipe1']);
+				$data['equipe2'][$key] = $this->quidditch_model->get_team($data['matches'][$key]['idequipe2']);
+			}
+
 			$this->layout->view('quidditch', $data);
 			//date('Y-m-d', strtotime('+7 day')) . ' 20:00:00';
 		}
@@ -69,6 +78,29 @@ class Quidditch extends CI_Controller {
 		}
 		else{
 			redirect('quidditch', 'location');
+		}
+	}
+
+	// Fonction pour le CRON
+	public function cron_simule_matchs($pass)
+	{
+		if($pass == "9b9c865533b3c0ab395d47c4725b37befa6afda3")
+		{
+			$this->load->model(array('quidditch_model'));
+			$this->load->helper('quidditch_helper');
+
+			$infos_match = $this->quidditch_model->get_quidditch_variables();
+			$this->quidditch_model->get_matches($infos_match['semaine']);
+
+			$puiss_t1 = 1000;
+			$puiss_t2 = 1000;
+			$proba_t1 = (puiss_t1*100)/(puiss_t1+puiss_t2);
+			$proba_t2 = (puiss_t2*100)/(puiss_t1+puiss_t2);
+
+		}
+		else
+		{
+			redirect('home', 'location');
 		}
 	}
 }

@@ -20,6 +20,38 @@
 					<span id="timer_minutes">Minutes</span>
 					<span id="timer_seconds">Secondes</span>
 				</div>
+		<br/>
+		<div class="container">
+			<div class="row">
+				<?php foreach ($matches as $key => $value): ?>
+					<div class="versus_quidditch">
+						<div class="col-md-6 col-md-offset-3">
+				          <div class="update-nag no-margin">
+				            <div class="update-split">
+					        <?php
+					        	$carte = "<img class='logo_quidditch' src = '".img_url('quidditch')."/".$equipe1[$key]['logo']."' id = 'card_".$key."'/>";
+					        	echo $carte;
+					        ?>
+				            </div>
+				            <div class="update-text"><?= $equipe1[$key]['nom'] ?></div>
+				          </div>
+				        </div>
+				    
+				        <div class="col-md-6 col-md-offset-3">
+				          <div class="update-nag">
+				            <div class="update-split">
+					        <?php
+					        	$carte = "<img class='logo_quidditch' src = '".img_url('quidditch')."/".$equipe2[$key]['logo']."' id = 'card_".$key."'/>";
+					        	echo $carte;
+					        ?>
+				            </div>
+				            <div class="update-text"><?= $equipe2[$key]['nom'] ?></div>
+				          </div>
+				        </div>
+			    	</div>
+				<?php endforeach; ?>
+			</div>
+		</div>
 			<?php 
 			else: // Sinon affichage de la visualisation des matchs ?>
 				<h1 class="oswald text-center">Des matchs sont en cours : </h1>

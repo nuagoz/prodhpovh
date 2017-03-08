@@ -15,10 +15,3 @@ if ( ! function_exists('affiche_carte_equipe')){
 		return $carte;
 	}
 }
-
-if ( ! function_exists('affiche_classement')){
-
-	function affiche_classement($data)
-	{
-	}
-}

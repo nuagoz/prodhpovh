@@ -105,6 +105,7 @@ define('POSSEDECARTE', 'possedecarte');
 define('EQUIPES_QUIDDITCH', 'equipes_quidditch');
 define('QUIDDITCH_RANK', 'quidditch_rank');
 define('QUIDDITCH_VARIABLES', 'quidditch_variables');
+define('QUIDDITCH_PLANNING', 'quidditch_planning');
 
 
 /*
