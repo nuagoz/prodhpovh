@@ -93,7 +93,8 @@ class Auth extends CI_Controller {
             $password = $this->input->post('pass1');
 
             $additional_data = array(
-                'argent'	 => 40
+                'argent'	 => 40,
+                'exp'		 => 0
             );
         }
         if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data))

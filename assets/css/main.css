@@ -1488,6 +1488,90 @@ input.champs_lettre:hover, input.champs_lettre:focus {
   margin-top:5px;
 }
 
-.okok{
-  position:absolute;
+/* EEYLOPS */
+
+.eeylops_list{
+  width:120px;
+  height:120px;
+}
+
+.fiche_hibou{
+  display:inline-block;
+  margin-right: 10px;
+}
+
+.eeylops_name{
+  font-size:26px;
+}
+
+.preview_level{
+  margin-top:20px;
+  margin-bottom:20px;
+  margin-right:5px;
+  margin-left:5px;
+}
+
+.preview_level_mobile{
+    float: right;
+    display: block;
+    position: absolute;
+    width: 20%;
+    right: 20px;
+    z-index: 5555;
+    margin-top: -39px;
+}
+
+.custom_progress{
+  overflow: hidden;
+  background-color: #4f5b69;
+}
+
+.progress_text{
+  line-height: 24px !important;
+  font-size:14px;
+}
+
+.print_level{
+  font-size:18px;
+}
+
+.preview_xp{
+  font-size:18px;
+  margin-top:19px;
+  color:black;
+  position: absolute;
+  left: 50%;
+}
+
+.relativeleft{
+  position: relative;
+  left: -50%;
+  color: white;
+  text-shadow: 1px 2px 3px rgba(0,0,0, 0.5);
+}
+
+.level{
+  font-size:16px;
+  font-weight: 500;
+  border-radius:5px;
+}
+
+.level_mobile{
+  font-size: 14px !important;
+  margin-top: 17px;
+  float:right;
+  margin-right: 50%;
+  -webkit-transform: translate(50%);
+    -moz-transform: translate(50%);
+    -ms-transform: translate(50%);
+    -o-transform: translate(50%);
+    transform: translate(50%);
+}
+
+.pseudo_mobile{
+  font-size:20px;
+}
+
+#menu_mobile{
+  cursor: default;
 }

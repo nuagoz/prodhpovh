@@ -7,6 +7,7 @@ class Profile extends CI_Controller {
 	{
 		if ($this->ion_auth->logged_in()){
 
+			$this->load->helper(array('membre_helper'));
 			$this->load->model(array('management_model','membre_model'));
 			$membre = $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
@@ -14,7 +15,7 @@ class Profile extends CI_Controller {
 			$data['points_membre'] = $membre['points'];
 
 			$data['pseudo'] = $data['pseudo_membre'];
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 			$data['animaux'] = $this->management_model->get_animaux_membre($this->session->userdata('user_id'));
 
 			$this->layout->view('profile', $data);
@@ -30,12 +31,13 @@ class Profile extends CI_Controller {
 	{
 		if ($idmembre != null){
 
+			$this->load->helper(array('membre_helper'));
 			$this->load->model(array('management_model','membre_model'));
 			$membre = $this->membre_model->get_membre_by_id($idmembre);
 
 			// Variables membre actuel pour le menu
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 			// Variables pour l'utilisateur visualisé
 			$data['pseudo_membre'] = $membre['pseudo'];

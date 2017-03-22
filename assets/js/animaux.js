@@ -59,15 +59,6 @@ function send_animal(idhibou) {
 					}
 
 				}, 1000);
-/*
-        		$("#notif_envoi").fadeTo(200,0.1,function()
-				{
-					$(this).html(data.response.options.notification).addClass('messageboxok').fadeTo(900,1,function(){});
-				});
-				$("#notif_ingredient").fadeTo(200,0.1,function()
-				{
-					$(this).html(data.response.options.ingredient).addClass('messageboxok').fadeTo(900,1,function(){});
-				});*/
 				
 				if (data.response.options.result_send === "ok")
 				{
@@ -79,6 +70,10 @@ function send_animal(idhibou) {
 					add_animation(data.response.options.message, 'fail', idhibou, data.response.options.img_ingredient);
 					bandeau('fail');
 				}
+
+				if (data.response.options.gain_xp !== 0)
+					gain_xp(data.response.options.gain_xp);
+
 
 				// Notification haut de page
 				// Vérification si elle est déjà affichée
@@ -167,6 +162,34 @@ function add_animation(texte, type, id, ingredient){
 	$('.animation_reward_'+id).show();
 	$('.animation_reward_'+id).addClass('animated fadeOutUp visible');
 
+}
+
+function gain_xp(value)
+{
+	var old_value = parseInt($("#actual_xp").html());
+	var new_value = old_value + value;
+	var max_value = parseInt($("#needed_xp").html());
+	var bonus_value = 0;
+
+	if(value > 1)
+		bonus_value = value - 1;
+
+	if (new_value == max_value) // level up
+	{
+		$("#actual_xp").html(0+bonus_value);
+		var old_lvl = parseInt($("#value_lvl").html());
+		$("#value_lvl").html(old_lvl+1);
+	}
+	else{
+		$("#actual_xp").html(new_value);	
+	}
+
+	// Progress bar
+	var pourcentage = (parseInt($("#actual_xp").html())/parseInt($("#needed_xp").html()))*100;
+
+	$("#progress_level").css({
+	    width : pourcentage+"%"
+	});
 }
 
 

@@ -3,16 +3,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Quidditch extends CI_Controller {
 
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model(array('membre_model', 'quidditch_model'));
+		$this->load->helper(array('form','membre_helper', 'quidditch_helper'));
+	}
+
 	public function index()
 	{
-		$this->load->helper('form');
-		$this->load->model(array('membre_model', 'quidditch_model'));
 		$this->layout->add_js('quidditch');
 
 		if ($this->ion_auth->logged_in()){
 
+			$puissance1 = 1000;
+			$puissance2 = 100;
+			$score1 = 310;
+			$score2 = 200;
+
+			$diffscore = max($score1, $score2) - min($score1, $score2);
+			$diffpuissance = max($puissance1, $puissance2) - min($puissance1, $puissance2) + 1;
+			$calcul = $diffscore/max($score1, $score2);
+			$calcul = round($calcul, 1); // Arrondi dixieme
+			//echo $calcul;
+
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 			$data['date'] = $this->quidditch_model->get_quidditch_variables();
 
 			$data['matches'] = $this->quidditch_model->get_matches($data['date']['semaine']);
@@ -34,11 +50,9 @@ class Quidditch extends CI_Controller {
 	// Page de la liste des équipes
 	public function teams()
 	{
-		$this->load->model(array('membre_model', 'quidditch_model'));
-		$this->load->helper('quidditch_helper');
 		if ($this->ion_auth->logged_in()){
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 			$data['equipes'] = $this->quidditch_model->get_teams();
 
 			$this->layout->view('quidditch_teams', $data);
@@ -53,7 +67,7 @@ class Quidditch extends CI_Controller {
 		if ($this->ion_auth->logged_in()){
 			$this->load->model(array('membre_model', 'quidditch_model'));
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 			$data['equipes_stats'] = $this->quidditch_model->get_teams_stats();
 
@@ -66,14 +80,12 @@ class Quidditch extends CI_Controller {
 
 	public function team($id=null)
 	{
-		$this->load->model(array('membre_model', 'quidditch_model'));
-		$this->load->helper('quidditch_helper');
 
 		$data['equipe'] = $this->quidditch_model->get_team($id);
 
 		if($id && $data['equipe'] && $this->ion_auth->logged_in()){
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 			$this->layout->view('quidditch_team', $data);
 		}
 		else{

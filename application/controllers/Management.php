@@ -9,6 +9,7 @@ class Management extends CI_Controller {
 		$this->lang->load('auth');
 		$this->load->library(array('ion_auth','form_validation'));
 		$this->load->model(array('membre_model', 'management_model'));
+		$this->load->helper(array('membre_helper'));
 	}
 
 	public function index()
@@ -23,7 +24,7 @@ class Management extends CI_Controller {
 
 			// récupération du pseudo et de l'argent du membre
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 			// Chargement de la liste des animaux du membre
 			$data['animaux'] = $this->management_model->get_animaux_membre($this->session->userdata('user_id'));
@@ -44,7 +45,7 @@ class Management extends CI_Controller {
 
 
 		$data['pseudo'] = $this->session->userdata('pseudo');
-		$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+		$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 		$data['cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'));
 		$data['nb_cartes_membre'] = $this->management_model->get_cards($this->session->userdata('user_id'), true);
@@ -64,7 +65,7 @@ class Management extends CI_Controller {
 	public function potions()
 	{
 		$data['pseudo'] = $this->session->userdata('pseudo');
-		$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+		$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 		$this->layout->view('potions', $data);
 	}
 
@@ -121,7 +122,7 @@ class Management extends CI_Controller {
 			$this->load->helper(array('animaux_helper', 'jsonresponse_helper'));
 
 			$jsonResponse = new JsonResponse();
-
+			$gain_xp = 0;
 			$resultat_ingredient = '';
 			$res = '';
 			$checktime='';
@@ -162,6 +163,10 @@ class Management extends CI_Controller {
 
 						// Ajout de l'ingredient
 						$this->ingredient_model->add_ingredient($ingredient_drop['id'], $idmembre);
+
+						// Ajout xp
+						$this->membre_model->add_xp($idmembre, 1);
+						$gain_xp = 1; // JS preview
 					}
 
 					$testreussite = rand(1,100); // Random pour voir si courrier réussi
@@ -224,6 +229,7 @@ class Management extends CI_Controller {
 					$jsonResponse->addOption('ingredient', $resultat_ingredient);
 					$jsonResponse->addOption('img_ingredient', $img_ingredient);
 					$jsonResponse->addOption('nom_ingredient', $nom_ingredient);
+					$jsonResponse->addOption('gain_xp', $gain_xp);
 
 				}
 				else // Si l'animal est en CD

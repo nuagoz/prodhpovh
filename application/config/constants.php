@@ -114,6 +114,8 @@ define('QUIDDITCH_PLANNING', 'quidditch_planning');
 |--------------------------------------------------------------------------
 */
 
+const LEVELS = array(25, 50, 100, 250, 500, 750, 1000, 1500, 2500, 4000);
+
 // Cartes crumble
 
 define('CRUMBLE_CARTES', 'crumble_cartes');

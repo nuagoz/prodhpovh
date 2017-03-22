@@ -3,6 +3,11 @@
 class Management_model extends CI_Model
 {
 
+	public function get_animaux()
+	{
+		return $this->db->get($this->db->protect_identifiers(ANIMAL))->result_array();
+	}
+
 	/*
 	 * Fonction get_animaux_membre($infos)
 	 * -----

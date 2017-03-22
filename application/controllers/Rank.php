@@ -10,7 +10,7 @@ class Rank extends CI_Controller {
 		if ($this->ion_auth->logged_in()){
 
 			$data['pseudo'] = $this->session->userdata('pseudo');
-			$data['argent'] = $argent = $this->membre_model->get_argent($this->session->userdata('user_id'));
+			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 			// Infos classement
 			$data['rank'] = $this->membre_model->classement();

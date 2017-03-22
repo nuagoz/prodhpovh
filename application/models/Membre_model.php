@@ -46,4 +46,15 @@ class Membre_model extends CI_Model
 		$valeur = $this->db->get($this->db->protect_identifiers(MEMBRES))->row_array();
 		return $valeur['argent'];
 	}
+
+	public function add_xp($idmembre, $value)
+	{
+		$this->db->select('exp');
+		$this->db->where('id', $idmembre);
+		$valeur = $this->db->get($this->db->protect_identifiers(MEMBRES))->row_array();
+
+		$this->db->where('id', $idmembre);
+		$data['exp'] = $valeur['exp'] + $value;
+		return $this->db->update($this->db->protect_identifiers(MEMBRES), $data);
+	}
 }
