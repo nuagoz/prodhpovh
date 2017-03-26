@@ -5,6 +5,7 @@ class Rank extends CI_Controller {
 
 	public function index()
 	{
+		echo "Coucou";
 		$this->load->helper('form');
 		$this->load->model(array('membre_model'));
 		if ($this->ion_auth->logged_in()){
