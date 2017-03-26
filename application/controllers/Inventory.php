@@ -12,8 +12,7 @@ class Inventory extends CI_Controller {
 
 			$data['pseudo'] = $this->session->userdata('pseudo');
 			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
-			//$this->layout->view('inventaire', $data);
-			$this->layout->view('sidebar', $data);
+			$this->layout->view('inventaire', $data);
 		}
 		else{
 			redirect('auth/login', 'location');

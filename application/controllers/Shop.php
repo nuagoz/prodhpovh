@@ -31,7 +31,8 @@ class Shop extends CI_Controller {
 			$data['info_membre'] =  $this->membre_model->get_membre_by_id($this->session->userdata('user_id'));
 
 			$data['liste'] = $this->management_model->get_animaux();
-			
+			$data['animal_qty'] = $this->management_model->get_animal_quantity($this->session->userdata('user_id'));
+
 			$this->layout->view('eeylops', $data);
 		}
 		else{

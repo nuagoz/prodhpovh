@@ -46,6 +46,22 @@ class Management_model extends CI_Model
 		return $this->db->get()->result_array();
 	}
 
+	public function get_animal_quantity($idmembre)
+	{
+		$this->db->where('id <', 100);
+		$result = $this->db->get($this->db->protect_identifiers(ANIMAL))->result_array();
+		$animal = [];
+		foreach($result as $key => $value)
+		{
+			$this->db->where('idanimal', $value['id']);
+			$this->db->or_where('idanimal', 100+$value['id']);
+			$this->db->where('idmembre', $idmembre);
+			$animal[] = $this->db->get($this->db->protect_identifiers(POSSEDEANIMAL))->num_rows();
+			//array_push($animal, 
+		}
+		return $animal;
+	}
+
 	/*
 	 * Fonction get_infos_animaux_membre($idmembre, $idanimal)
 	 * -----

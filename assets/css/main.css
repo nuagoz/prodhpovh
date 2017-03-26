@@ -624,6 +624,7 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 /********************************/
 
 .cadrehibou{
+      transition: 1s;
   width:200px;
   height: 300px;
   box-shadow: 3px 2px 10px 3px;
@@ -1504,6 +1505,87 @@ input.champs_lettre:hover, input.champs_lettre:focus {
   font-size:26px;
 }
 
+
+/* --- */
+
+.print_animal{
+  width:200px;
+}
+
+.print_gallion{
+  width:28px;
+}
+
+.progress-succes{
+  margin-top:5px !important;
+  margin-bottom: 5px !important;
+}
+
+.card_price{
+  font-size:21px;
+}
+.card_eeylops {
+  background-color: rgba(180, 168, 144, 0.3);
+  margin-right: 15px;
+  margin-left: 15px;
+  display: inline-block;
+  width:240px;
+  padding:20px;
+  padding-left:auto;
+  padding-right:auto;
+  margin-top:15px;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  -webkit-transition: .25s box-shadow;
+  transition: .25s box-shadow;
+}
+.card_eeylops:focus, .card_eeylops:hover {
+ box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+}
+.card-inverse_eeylops .card-img-overlay_eeylops {
+ background-color: rgba(51, 51, 51, 0.85);
+ border-color: rgba(51, 51, 51, 0.85);
+}
+.card-img-top_eeylops{
+  margin-top:10px;
+  margin-bottom: 10px;
+}
+
+.card-top_zone{
+  font-size:28px;
+}
+/* --- */
+.wrapper_eey {
+  background-color: black;
+  color: white;
+  display: flex;
+  flex-flow: row nowrap;
+  min-height: 100%;
+  width: 300px;
+}
+
+.icon_eey {
+  align-self: center;
+  background-color: yellow;
+  color: black;
+  flex: 1 1 auto;
+  font-size: 32px;
+  padding: 20px;
+}
+
+.content_eey {
+  background-color: lightgreen;
+  color: black;
+  flex: 11
+    2 1 auto;
+  padding: 20px;
+}
+
+.preview_animal{
+  width:150px;
+}
+
+/* --- */
+
 .preview_level{
   margin-top:20px;
   margin-bottom:20px;
@@ -1575,3 +1657,7 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 #menu_mobile{
   cursor: default;
 }
+
+/********************************/
+/*       Inventaire CSS         */
+/********************************/

@@ -13,7 +13,7 @@ $info_xp = determine_niveau($info_membre['exp']);
         <?php echo $pseudo; ?>
       </div>
       <div id="gallions_user">
-        <span class='g_value'><?= $info_membre['argent'];  ?></span> <img id='img_gallion' src='<?php echo img_url('gallion2.png'); ?>'/></span>
+        <span class='g_value'><?= $info_membre['argent'];  ?></span> <span><img id='img_gallion' src='<?php echo img_url('gallion2.png'); ?>'/></span>
       </div>
 
       <div id="user_level">

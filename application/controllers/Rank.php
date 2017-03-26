@@ -5,7 +5,7 @@ class Rank extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->helper('form');
+		$this->load->helper(array('form','membre_helper'));
 		$this->load->model(array('membre_model'));
 		if ($this->ion_auth->logged_in()){
 
