@@ -8,6 +8,12 @@ class Management_model extends CI_Model
 		return $this->db->get($this->db->protect_identifiers(ANIMAL))->result_array();
 	}
 
+	public function get_animal($idanimal)
+	{
+		$this->db->where('id', $idanimal);
+		return $this->db->get($this->db->protect_identifiers(ANIMAL))->row_array();
+	}
+
 	/*
 	 * Fonction get_animaux_membre($infos)
 	 * -----
@@ -62,6 +68,27 @@ class Management_model extends CI_Model
 		return $animal;
 	}
 
+	// Compte le nombre d'animaux que possède un membre
+	public function get_qty_animal_membre($idmembre)
+	{
+		$this->db->where('idmembre', $idmembre);
+		return $this->db->get($this->db->protect_identifiers(POSSEDEANIMAL))->num_rows();
+	}
+
+	public function get_qty_animal_by_id($idanimal, $idmembre)
+	{
+		
+		$this->db->where('idanimal', $idanimal);
+		$this->db->or_where('idanimal', 100+$idanimal);
+		$this->db->where('idmembre', $idmembre);
+		return $this->db->get($this->db->protect_identifiers(POSSEDEANIMAL))->num_rows();
+	}
+
+	public function add_animal($data)
+	{
+		$this->db->insert($this->db->protect_identifiers(POSSEDEANIMAL), $data);
+		return $this->db->insert_id();
+	}
 	/*
 	 * Fonction get_infos_animaux_membre($idmembre, $idanimal)
 	 * -----

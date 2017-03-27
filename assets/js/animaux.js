@@ -1,8 +1,5 @@
 $(window).on('resize', centerModals);
-
-$( ".close" ).click(function() {
-  alert( "Handler for .click() called." );
-});
+var id_hibou;
 
 function send_animal(idhibou) {
 
@@ -252,4 +249,107 @@ function centerModals($element) {
 }
 $(modalVerticalCenterClass).on('show.bs.modal', function(e) {
     centerModals($(this));
+});
+
+$(".buy_hibou").click(function(){
+
+	var link = $("#linksrcanimal").val();
+	id_hibou = $(this).attr('data-hibou');
+	$("#namehibouspan").html($(this).attr('data-name'));
+
+	var image = "<img class = 'center-block print_animal img-rounded img-responsive' src  = '";
+	image += link + "/" + id_hibou +'.jpg';
+	image += "'/>";
+
+	$("#imghibouspan").html(image);
+	$("#valeur_achat").html($(this).attr('data-price'));
+
+	$("#erreur_achat").hide();
+	$("#texterror").html("");
+	$('#buy_eeylops').modal('show');
+});
+
+$('#random_name').hover(
+    function(){
+        $(this).css({'background-color': '#cfcfcf'});
+    },
+    function(){
+        $(this).css({'background-color': '#eee'});
+    }
+);
+
+$('#random_name, #random_name_mobile').click(function(){
+	$.ajax({
+        type:'POST',
+        data : {"idhibou":"ok"},
+        url : 'generate_name',
+        success: function(data){
+        	$("#animal_input_name").val(data.response.options.name);
+        	$("#animal_input_name_mobile").val(data.response.options.name);
+        	$('#buy_hibou').prop('disabled', false);
+        }
+    });
+});
+
+$("#animal_input_name, #animal_input_name_mobile").keyup(function(){
+		if(check_input_length($(this)))
+			$('#buy_hibou').prop('disabled', false);
+		else
+			$('#buy_hibou').prop('disabled', true);	
+});
+
+function check_input_length(element)
+{
+	if(element.val().length == 6 || element.val().length == 6)
+		return true;
+	return false;
+}
+
+$("#buy_hibou").click(function(){
+	var hibouname;
+	if($("#animal_input_name").val().length == 0)
+		hibouname = $("#animal_input_name_mobile").val();
+	else
+		hibouname = $("#animal_input_name").val();
+
+	$.ajax({
+        type:'POST',
+        data : {"idhibou":id_hibou, "hibouname":hibouname},
+        url : 'buy_owl',
+        success: function(data){
+        	if(data.response.options.traitement_ok) // achat effectué
+        	{
+        		var link = $("#linksrcanimal").val();
+        		var image = "<img class = 'center-block alert_mobile img-rounded img-responsive' src  = '";
+				image += link + "/" + id_hibou +'.jpg';
+				image += "'/>";
+
+				var title = "<div class='text-center oswald titletoastr'>";
+					title += "Achat effectué !";
+				title += "</div><br/>";
+
+				var content = image;        		
+
+        		toastr.success(content, title, {timeOut: 3000}); // Notification de l'achat
+
+        		// Ajout +1 possédé.
+        		$("#nb_hibou_"+id_hibou).html(parseInt($("#nb_hibou_"+id_hibou).html())+1);
+
+        		// Enlever argent
+        		$(".g_value").html(parseInt($(".g_value").html()) - parseInt(data.response.options.price));
+        		$('#buy_eeylops').modal('hide');	
+        	}
+        	else{ // Au moins une erreur
+        		if(!data.response.options.taille_ok)
+        			$("#texterror").html("Le nom de votre animal doit faire 6 caractères.");
+        		else if(!data.response.options.argent_ok)
+        			$("#texterror").html("Vous n'avez pas assez de gallions.");
+        		else if(!data.response.options.stock_ok)
+        			$("#texterror").html("Vous n'avez pas assez de place dans votre volière.");
+        		else if(!data.response.options.qty_limite_ok)
+        			$("#texterror").html("Vous ne pouvez pas posséder plus de <strong>" + $("#namehibouspan").html() + "</strong>");
+        		$("#erreur_achat").show();
+        	}
+        }
+    });
 });

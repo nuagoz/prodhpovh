@@ -109,3 +109,27 @@ if ( ! function_exists('build_fiche_cd')){
 		return $cadre;
 	}
 }
+
+function genere_nom()
+{
+	$alphabet = array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z");
+	$consonne = array("b","c","d","f","g","h","j","k","l","m","n","p","q","r","s","t","v","w","x","y","z");
+	$voyelles = array("a","e","i","o","u");
+	$nom = $alphabet[array_rand($alphabet)];
+ 
+	while(strlen($nom) < 6){
+
+		if(in_array(substr($nom,-1), $voyelles))
+   			if(rand(0,1) && strlen($nom) > 1 && !in_array(substr($nom,-2,1), $voyelles))
+    			$nom .= $voyelles[array_rand($voyelles)];
+   			else
+    			$nom .= $consonne[array_rand($consonne)];
+   
+  		$nom .= $voyelles[array_rand($voyelles)];
+	}
+
+	$nom = ucfirst($nom);
+ 
+  return $nom;
+}
+

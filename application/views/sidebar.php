@@ -6,7 +6,7 @@ $info_xp = determine_niveau($info_membre['exp']);
 <div class="col-sm-3 col-lg-2 nav-side-menu no-padding">
     <div class="brand">
     Hpovh
-      <span class = "visible-xs g_value oswald" id = "mobile_qty_gallions"><?= $info_membre['argent']; ?> <img id='img_gallion' src='<?php echo img_url('gallion2.png'); ?>'/></span>
+      <span class = "visible-xs oswald" id = "mobile_qty_gallions"><span class='g_value'><?= $info_membre['argent']; ?></span> <img id='img_gallion' src='<?php echo img_url('gallion2.png'); ?>'/></span>
     </div>
     <div id="infos_user" class="text-center oswald">
       <div id="pseudo_user">

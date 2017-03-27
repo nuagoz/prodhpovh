@@ -1508,12 +1508,29 @@ input.champs_lettre:hover, input.champs_lettre:focus {
 
 /* --- */
 
+#animal_input_name, #animal_input_name_mobile{
+  height:50px;
+  font-size:28px;
+}
+
 .print_animal{
   width:200px;
 }
 
 .print_gallion{
   width:28px;
+}
+
+.print_gallion_min{
+  width:24px;
+  margin-bottom: 3px;
+}
+
+.green-success{
+  background-color: #3c853c;
+}
+.font21{
+  font-size: 21px;
 }
 
 .progress-succes{
@@ -1658,6 +1675,26 @@ input.champs_lettre:hover, input.champs_lettre:focus {
   cursor: default;
 }
 
+#info_name_hibou{
+  font-size:21px;
+  text-align:center;
+}
+
+#random_name{
+  cursor:pointer;
+}
+
+.achat_buttons{
+  margin-top:10px;
+}
+
+.alert_mobile{
+  width:100px;
+}
+
+.titletoastr{
+  font-size:24px;
+}
 /********************************/
 /*       Inventaire CSS         */
 /********************************/
